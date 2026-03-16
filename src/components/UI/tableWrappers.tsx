@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export function TableWrapper({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-col w-full rounded-md border p-2 caret-sky-500 select-text">
+    <div className="flex flex-col w-full p-2 caret-sky-500 select-text">
       {children}
     </div>
   )
