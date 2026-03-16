@@ -14,7 +14,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -83,8 +82,8 @@ export function DataTable<TData, TValue>({
         />
 
         <Dialog>
-          <DialogTrigger className="min-w-20 rounded-md bg-black p-2 font-medium text-white">
-            Incluir
+          <DialogTrigger className="min-w-20 rounded-md p-2 font-medium">
+            <Button>Incluir</Button>
           </DialogTrigger>
           <div className="hidden">
             <DialogIncludeVehicle
