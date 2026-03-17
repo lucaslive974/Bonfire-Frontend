@@ -126,7 +126,7 @@ export function ImportForm() {
         {loading ? (
           <span className="flex items-center gap-2">
             <Loader2 className="h-4 w-4 animate-spin" />
-            Importando...
+            <div className="text-background dark:text-background">Importando...</div>
           </span>
         ) : (
           'Importar'
