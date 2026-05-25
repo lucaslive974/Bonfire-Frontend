@@ -32,7 +32,7 @@ export function PrimaryLayout({ children }: Props) {
       <Header toggleSideBar={toggleSideBar} />
 
       {/* Scroll Progress Bar at the top of the screen (under header) */}
-      <div className="fixed top-12 left-0 z-50 h-[3px] w-full bg-zinc-100/30 dark:bg-zinc-900/20">
+      <div className="fixed top-12 left-0 z-30 h-[3px] w-full bg-zinc-100/30 dark:bg-zinc-900/20">
         <div
           className="h-full bg-gradient-to-r from-amber-600 to-orange-500 dark:from-amber-500 dark:to-orange-400 transition-all duration-100 ease-out shadow-[0_1px_10px_rgba(245,158,11,0.4)]"
           style={{ width: `${scrollProgress}%` }}

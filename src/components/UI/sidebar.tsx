@@ -13,7 +13,7 @@ export function SideBar({ sidebarOpen, toggleSideBar }: SideBarProps) {
       {/* Sidebar Drawer Container */}
       <aside
         className={`
-          fixed left-0 top-0 z-40
+          fixed left-0 top-0 z-50
           flex h-full w-64 flex-col
           border-r border-zinc-200/80 bg-white/95 backdrop-blur-md p-6
           dark:border-zinc-800/80 dark:bg-zinc-950/95
