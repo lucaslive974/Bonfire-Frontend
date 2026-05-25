@@ -1,7 +1,7 @@
 'use client'
 
 import { AlignJustify } from 'lucide-react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/useAuth'
 
 import { NotificationBar } from './notificationBar'
 import { ThemeBtn } from './themeBtn'
@@ -11,7 +11,7 @@ type HeaderProps = {
 }
 
 export function Header({ toggleSideBar }: HeaderProps) {
-  const { data: session } = useSession()
+  const { session } = useAuth()
 
   return (
     <>

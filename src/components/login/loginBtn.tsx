@@ -1,13 +1,14 @@
 'use client'
 
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/useAuth'
 import { Button } from '../UI/button'
 
 export function SignInBtn() {
+  const { login } = useAuth()
   return (
     <Button
       variant="secondary"
-      onClick={() => signIn('keycloak', { redirect: true, callbackUrl: '/' })}
+      onClick={() => login('keycloak')}
     >
       Entrar
     </Button>
@@ -15,15 +16,16 @@ export function SignInBtn() {
 }
 
 export function SignOutBtn() {
+  const { logout } = useAuth()
   return (
-    <Button variant="secondary" onClick={() => signOut({ redirect: false })}>
+    <Button variant="secondary" onClick={() => logout({ redirect: false })}>
       Sair
     </Button>
   )
 }
 
 export default function LoginBtn() {
-  const { data: session } = useSession()
+  const { session } = useAuth()
   if (session) {
     return (
       <div className="flex flex-col items-center justify-center gap-8">

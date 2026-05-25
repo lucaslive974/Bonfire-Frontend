@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
-import { getSession, signOut } from 'next-auth/react'
+import { authClientService } from '../auth/NextAuthClientService'
 import { IHttpClient, HttpRequestConfig, HttpResponse, HttpError } from './HttpClient.interface'
 import { notify } from '@/lib/utils'
 
@@ -16,7 +16,7 @@ export class AxiosHttpClient implements IHttpClient {
 
     // Request interceptor: add next-auth session access token to headers
     this.instance.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
-      const session = await getSession()
+      const session = await authClientService.getSession()
       if (session?.accessToken) {
         config.headers.Authorization = `Bearer ${session.accessToken}`
       }
@@ -33,7 +33,7 @@ export class AxiosHttpClient implements IHttpClient {
             notify.error('Sessão expirada. Redirecionando...')
             
             // Clean local session (cookies/tokens) and redirect graciosamente
-            await signOut({ redirect: true, callbackUrl: '/login?expired=true' })
+            await authClientService.logout({ redirect: true, callbackUrl: '/login?expired=true' })
           }
         }
         return Promise.reject(error)

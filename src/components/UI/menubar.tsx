@@ -18,21 +18,16 @@ import {
 } from "@/components/ui/collapsible"
 
 import { usePathname } from "next/navigation"
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/useAuth'
 
 import Link from 'next/link'
 
-function handleSignIn() {
-  signIn('keycloak', { redirect: true, callbackUrl: '/' })
-}
-
-function handleSignOut() {
-  signOut({ redirect: true, callbackUrl: '/' })
-}
-
 export function MenuBar() {
   const pathname = usePathname()
-  const { data: session } = useSession()
+  const { session, login, logout } = useAuth()
+
+  const handleSignIn = () => login('keycloak')
+  const handleSignOut = () => logout()
 
   const isActive = (path: string) => pathname.startsWith(path)
 

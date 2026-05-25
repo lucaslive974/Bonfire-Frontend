@@ -9,11 +9,11 @@ import {
 } from '@/services/localStorage'
 
 import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/useAuth'
 
 export function useNotifications() {
   const [notifications, setNotifications] = useState<NotificationT[]>([])
-  const { data: session } = useSession()
+  const { session } = useAuth()
 
   function handleInsert(notification: EventT) {
     const userName = session?.user?.name || session?.user?.email || 'Usuário'
