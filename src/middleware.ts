@@ -7,5 +7,6 @@ export const config = {
     '/import/:path*',
     '/recurses/:path*',
     '/history/:path*',
+    '/profile/:path*',
   ],
 }
