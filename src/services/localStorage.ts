@@ -3,6 +3,8 @@ import { EventT } from '@/schemas/NotificationSchema'
 export type NotificationT = EventT & {
   id: string
   date: string
+  read: boolean
+  user?: string
 }
 
 const STORAGE_KEY = 'notifications'
@@ -23,18 +25,47 @@ export function getNotifications(): NotificationT[] {
   return safeParse<NotificationT[]>(data, [])
 }
 
-export function addNotification(notification: EventT): NotificationT[] {
+export function addNotification(notification: EventT, userName?: string): NotificationT[] {
   if (typeof window === 'undefined') return []
 
   const notifications = getNotifications()
 
+  // Use full local locale string to capture both date and exact time
+  const dateStr = new Date().toLocaleString('pt-BR')
+
   const newNotification: NotificationT = {
     ...notification,
     id: crypto.randomUUID(),
-    date: new Date().toLocaleDateString('pt-BR'),
+    date: dateStr,
+    read: false,
+    user: userName || 'Sistema',
   }
 
   const updated = [newNotification, ...notifications]
+
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
+
+  return updated
+}
+
+export function markNotificationAsRead(id: string): NotificationT[] {
+  if (typeof window === 'undefined') return []
+
+  const notifications = getNotifications()
+  const updated = notifications.map((n) =>
+    n.id === id ? { ...n, read: true } : n
+  )
+
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
+
+  return updated
+}
+
+export function markAllNotificationsAsRead(): NotificationT[] {
+  if (typeof window === 'undefined') return []
+
+  const notifications = getNotifications()
+  const updated = notifications.map((n) => ({ ...n, read: true }))
 
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
 

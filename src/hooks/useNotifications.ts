@@ -3,16 +3,21 @@ import {
   clearNotifications,
   getNotifications,
   addNotification,
+  markNotificationAsRead,
+  markAllNotificationsAsRead,
   NotificationT,
 } from '@/services/localStorage'
 
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 
 export function useNotifications() {
   const [notifications, setNotifications] = useState<NotificationT[]>([])
+  const { data: session } = useSession()
 
   function handleInsert(notification: EventT) {
-    const updated = addNotification(notification)
+    const userName = session?.user?.name || session?.user?.email || 'Usuário'
+    const updated = addNotification(notification, userName)
     setNotifications(updated)
   }
 
@@ -21,14 +26,28 @@ export function useNotifications() {
     setNotifications([])
   }
 
+  function handleMarkAsRead(id: string) {
+    const updated = markNotificationAsRead(id)
+    setNotifications(updated)
+  }
+
+  function handleMarkAllAsRead() {
+    const updated = markAllNotificationsAsRead()
+    setNotifications(updated)
+  }
+
   useEffect(() => {
     setNotifications(getNotifications())
   }, [])
 
+  const unreadCount = notifications.filter((n) => !n.read).length
+
   return {
     notifications,
-    qtdNotifications: notifications.length,
+    qtdNotifications: unreadCount, // Only count unread items for the badge
     handleInsert,
     handleClear,
+    handleMarkAsRead,
+    handleMarkAllAsRead,
   }
 }

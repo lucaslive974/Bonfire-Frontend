@@ -8,6 +8,7 @@ import {
   LucideHome,
   LucideImport,
   ChevronRight,
+  History,
 } from 'lucide-react'
 
 import {
@@ -131,6 +132,16 @@ export function MenuBar() {
       >
         <LucideImport size={16} />
         Importação
+      </Link>
+
+      {/* Histórico */}
+      <Link
+        href="/history"
+        className={`sidebar-link flex items-center gap-2 ${pathname.startsWith("/history") ? "sidebar-active" : ""
+          }`}
+      >
+        <History size={16} />
+        Histórico
       </Link>
 
       {/* Login / Logout */}
