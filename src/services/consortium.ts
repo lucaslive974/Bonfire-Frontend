@@ -1,13 +1,22 @@
 import { ConsortiumFrameData, LoadConsortium } from '@/schemas/ConsortiumSchema'
 import useSWR from 'swr'
-import { api } from './apiClient'
+import { BaseService } from './BaseService'
 
+export class ConsortiumService extends BaseService {
+  async getConsortiums(): Promise<ConsortiumFrameData[]> {
+    const response = await this.client.get<LoadConsortium>('/consorcio')
+    return response.data.consorcios
+  }
+}
+
+export const consortiumService = new ConsortiumService()
+
+// Backward compatibility exports
 export function GetConsortiums() {
   const { data, mutate } = useSWR<ConsortiumFrameData[]>(
     '/consorcio',
     async () => {
-      const response = await api.get<LoadConsortium>('/consorcio')
-      return response.data.consorcios
+      return consortiumService.getConsortiums()
     },
   )
 
