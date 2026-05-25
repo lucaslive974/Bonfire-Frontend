@@ -33,6 +33,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
   setDate: (event: string) => void
   setAi: (event: string) => void
+  isLoading?: boolean
 }
 
 export function DataTable<TData, TValue>({
@@ -40,6 +41,7 @@ export function DataTable<TData, TValue>({
   data,
   setDate,
   setAi,
+  isLoading = false,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -95,7 +97,21 @@ export function DataTable<TData, TValue>({
               ))}
             </TableHeader>
             <TableBody>
-              {table.getRowModel().rows?.length ? (
+              {isLoading ? (
+                Array.from({ length: 5 }).map((_, rowIndex) => (
+                  <TableRow key={rowIndex} className="border-b border-zinc-100 dark:border-zinc-900/80 hover:bg-transparent">
+                    {columns.map((_, colIndex) => (
+                      <TableCell key={colIndex} className="py-4">
+                        <div
+                          className={`h-4 animate-pulse bg-zinc-200 dark:bg-zinc-800 rounded ${
+                            colIndex % 3 === 0 ? 'w-3/4' : colIndex % 3 === 1 ? 'w-1/2' : 'w-2/3'
+                          }`}
+                        />
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow
                     key={row.id}

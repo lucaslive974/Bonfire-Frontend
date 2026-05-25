@@ -1,14 +1,15 @@
 'use client'
 
 import {
-  AlignJustify,
-  FileSpreadsheetIcon,
-  LogIn,
-  LucideBookCheck,
   LucideHome,
+  LucideBookCheck,
+  Scale,
+  Layers,
   LucideImport,
-  ChevronRight,
   History,
+  LogIn,
+  LogOut,
+  ChevronRight
 } from 'lucide-react'
 
 import {
@@ -31,123 +32,141 @@ export function MenuBar() {
 
   const isActive = (path: string) => pathname.startsWith(path)
 
+  const linkStyles = (active: boolean) =>
+    `flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-all duration-200 ${
+      active
+        ? 'bg-orange-50 dark:bg-orange-950/20 text-orange-600 dark:text-orange-400 shadow-sm border-l-2 border-orange-500 rounded-l-none pl-2.5'
+        : 'text-zinc-650 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-900 dark:hover:text-zinc-100'
+    }`
+
+  const triggerStyles = (active: boolean) =>
+    `flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-all duration-200 ${
+      active
+        ? 'bg-orange-50/50 dark:bg-orange-950/10 text-orange-600 dark:text-orange-400 border-l-2 border-orange-500/50 rounded-l-none pl-2.5'
+        : 'text-zinc-655 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-900 dark:hover:text-zinc-100'
+    }`
+
+  const subLinkStyles = (active: boolean) =>
+    `flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 ${
+      active
+        ? 'text-orange-600 dark:text-orange-400 font-bold bg-orange-50/30 dark:bg-orange-950/10'
+        : 'text-zinc-500 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-50/30 dark:hover:bg-zinc-900/20'
+    }`
+
   return (
-    <div className="mt-8 flex flex-col gap-1 max-sm:w-full">
+    <nav className="flex flex-col gap-1.5 max-sm:w-full">
 
       {/* Inicio */}
-      <Link
-        href="/"
-        className={`sidebar-link flex items-center gap-2 ${pathname === "/" ? "sidebar-active" : ""
-          }`}
-      >
-        <LucideHome size={16} />
-        Inicio
+      <Link href="/" className={linkStyles(pathname === "/")}>
+        <LucideHome size={17} className="shrink-0" />
+        <span>Início</span>
       </Link>
 
       {/* Infrações */}
-      <Link
-        href="/infractions"
-        className={`sidebar-link flex items-center gap-2 ${pathname.startsWith("/infractions") ? "sidebar-active" : ""
-          }`}
-      >
-        <LucideBookCheck size={16} />
-        Infrações
+      <Link href="/infractions" className={linkStyles(isActive("/infractions"))}>
+        <LucideBookCheck size={17} className="shrink-0" />
+        <span>Infrações</span>
       </Link>
 
       {/* Recursos */}
-      <Collapsible defaultOpen={isActive("/recurses")}>
+      <Collapsible defaultOpen={isActive("/recurses")} className="w-full">
         <CollapsibleTrigger asChild>
-          <button className="sidebar-link group flex w-full items-center gap-2">
-            <AlignJustify size={16} className="shrink-0" />
-            <span className="flex-1 text-left">
-              Recursos
-            </span>
-            <ChevronRight size={16} className="text-zinc-500 transition-transform group-data-[state=open]:rotate-90 shrink-0" />
+          <button className={triggerStyles(isActive("/recurses"))}>
+            <Scale size={17} className="shrink-0" />
+            <span className="flex-1 text-left">Recursos</span>
+            <ChevronRight size={15} className="text-zinc-400 dark:text-zinc-500 transition-transform duration-200 group-data-[state=open]:rotate-90 shrink-0" />
           </button>
         </CollapsibleTrigger>
 
-        <CollapsibleContent className="ml-6 flex flex-col gap-1">
+        <CollapsibleContent className="pl-6 pr-2 py-1 flex flex-col gap-1 border-l border-zinc-100 dark:border-zinc-900 ml-[17px] mt-1">
           <Link
             href="/recurses/firstInstance"
-            className={`sidebar-link ${pathname === "/recurses/firstInstance" ? "sidebar-active" : ""}`}
+            className={subLinkStyles(pathname === "/recurses/firstInstance")}
           >
-            1° Instância
+            <span className="h-1 w-1 rounded-full bg-current shrink-0" />
+            <span>1ª Instância</span>
           </Link>
 
           <Link
             href="/recurses/secondInstance"
-            className={`sidebar-link ${pathname === "/recurses/secondInstance" ? "sidebar-active" : ""}`}
+            className={subLinkStyles(pathname === "/recurses/secondInstance")}
           >
-            2° Instância
+            <span className="h-1 w-1 rounded-full bg-current shrink-0" />
+            <span>2ª Instância</span>
           </Link>
         </CollapsibleContent>
       </Collapsible>
 
       {/* Cadastros */}
-      <Collapsible defaultOpen={isActive("/registers")}>
+      <Collapsible defaultOpen={isActive("/registers")} className="w-full">
         <CollapsibleTrigger asChild>
-          <button className="sidebar-link group flex w-full items-center gap-2">
-            <AlignJustify size={16} className="shrink-0" />
-            <span className="flex-1 text-left">
-              Cadastros
-            </span>
-            <ChevronRight size={16} className="text-zinc-500 transition-transform group-data-[state=open]:rotate-90 shrink-0" />
+          <button className={triggerStyles(isActive("/registers"))}>
+            <Layers size={17} className="shrink-0" />
+            <span className="flex-1 text-left">Cadastros</span>
+            <ChevronRight size={15} className="text-zinc-400 dark:text-zinc-500 transition-transform duration-200 group-data-[state=open]:rotate-90 shrink-0" />
           </button>
         </CollapsibleTrigger>
 
-        <CollapsibleContent className="ml-6 flex flex-col gap-1">
+        <CollapsibleContent className="pl-6 pr-2 py-1 flex flex-col gap-1 border-l border-zinc-100 dark:border-zinc-900 ml-[17px] mt-1">
           <Link
             href="/registers/vehicles"
-            className={`sidebar-link ${pathname === "/registers/vehicles" ? "sidebar-active" : ""}`}
+            className={subLinkStyles(pathname === "/registers/vehicles")}
           >
-            Veículos
+            <span className="h-1 w-1 rounded-full bg-current shrink-0" />
+            <span>Veículos</span>
           </Link>
 
           <Link
             href="/registers/lines"
-            className={`sidebar-link ${pathname === "/registers/lines" ? "sidebar-active" : ""}`}
+            className={subLinkStyles(pathname === "/registers/lines")}
           >
-            Linhas
+            <span className="h-1 w-1 rounded-full bg-current shrink-0" />
+            <span>Linhas</span>
           </Link>
 
           <Link
             href="/registers/consortium"
-            className={`sidebar-link ${pathname === "/registers/consortium" ? "sidebar-active" : ""}`}
+            className={subLinkStyles(pathname === "/registers/consortium")}
           >
-            Consórcio
+            <span className="h-1 w-1 rounded-full bg-current shrink-0" />
+            <span>Consórcios</span>
           </Link>
         </CollapsibleContent>
       </Collapsible>
 
       {/* Importação */}
-      <Link
-        href="/import"
-        className={`sidebar-link flex items-center gap-2 ${pathname.startsWith("/import") ? "sidebar-active" : ""
-          }`}
-      >
-        <LucideImport size={16} />
-        Importação
+      <Link href="/import" className={linkStyles(isActive("/import"))}>
+        <LucideImport size={17} className="shrink-0" />
+        <span>Importação</span>
       </Link>
 
       {/* Histórico */}
-      <Link
-        href="/history"
-        className={`sidebar-link flex items-center gap-2 ${pathname.startsWith("/history") ? "sidebar-active" : ""
-          }`}
-      >
-        <History size={16} />
-        Histórico
+      <Link href="/history" className={linkStyles(isActive("/history"))}>
+        <History size={17} className="shrink-0" />
+        <span>Histórico</span>
       </Link>
+
+      {/* Divider */}
+      <div className="my-2 border-t border-zinc-150 dark:border-zinc-900" />
 
       {/* Login / Logout */}
       <button
         onClick={session ? handleSignOut : handleSignIn}
-        className="sidebar-link flex items-center gap-2"
+        className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-all duration-200 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-orange-600 dark:hover:text-orange-400 w-full"
       >
-        <LogIn size={16} />
-        {session ? "Log-out" : "Log-in"}
+        {session ? (
+          <>
+            <LogOut size={17} className="shrink-0" />
+            <span>Sair da Conta</span>
+          </>
+        ) : (
+          <>
+            <LogIn size={17} className="shrink-0" />
+            <span>Entrar no Sistema</span>
+          </>
+        )}
       </button>
 
-    </div>
+    </nav>
   )
 }

@@ -11,11 +11,15 @@ export class NextAuthClientService implements IAuthService {
    */
   async login(provider = 'keycloak', options?: Record<string, any>): Promise<void> {
     try {
-      await signIn(provider, {
-        redirect: true,
+      const res = await signIn(provider, {
+        redirect: false,
         callbackUrl: '/',
         ...options,
       })
+
+      if (res?.error) {
+        throw new Error(res.error)
+      }
     } catch (error) {
       console.error('[AuthClientService] Falha ao realizar login:', error)
       throw error
