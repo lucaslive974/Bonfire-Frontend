@@ -6,5 +6,6 @@ export const config = {
     '/registers/:path*',
     '/import/:path*',
     '/recurses/:path*',
+    '/history/:path*',
   ],
 }
