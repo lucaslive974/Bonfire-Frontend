@@ -2,9 +2,10 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useEffect, Suspense } from 'react'
-import { notify } from '@/lib/utils'
-import { Flame, ShieldCheck } from 'lucide-react'
 import LoginBtn from './loginBtn'
+import { notify } from '@/lib/utils'
+import { ShieldCheck } from 'lucide-react'
+import { BrandLogoFull } from '../UI/brandLogo'
 
 function LoginMenuContent() {
   const searchParams = useSearchParams()
@@ -21,22 +22,8 @@ function LoginMenuContent() {
 
   return (
     <div className="w-full max-w-md p-8 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-xl flex flex-col items-center text-center space-y-8 animate-in fade-in zoom-in-95 duration-300">
-      
-      {/* Branding Logo Header */}
-      <div className="flex flex-col items-center space-y-3">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/30 animate-pulse-subtle">
-          <Flame size={32} className="fill-current" />
-        </div>
-        <div className="space-y-1">
-          <span className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 dark:from-orange-400 dark:via-amber-400 dark:to-yellow-400 bg-clip-text text-transparent block">
-            Bonfire
-          </span>
-          <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest block">
-            Autos de Infração & Gestão
-          </span>
-        </div>
-      </div>
 
+      <BrandLogoFull />
       <div className="w-full border-t border-zinc-100 dark:border-zinc-900" />
 
       {/* Button and Status */}

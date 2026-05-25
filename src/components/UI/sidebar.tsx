@@ -1,6 +1,6 @@
-import { LucideX, Flame } from 'lucide-react'
+import { LucideX } from 'lucide-react'
 import { MenuBar } from './menubar'
-import Link from 'next/link'
+import { BrandLogo } from './brandLogo'
 
 interface SideBarProps {
   sidebarOpen: boolean
@@ -23,15 +23,7 @@ export function SideBar({ sidebarOpen, toggleSideBar }: SideBarProps) {
       >
         {/* Sidebar Header */}
         <div className="flex items-center justify-between mb-8">
-          <Link href="/" className="flex items-center gap-2 group" onClick={toggleSideBar}>
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-sm shadow-orange-500/20">
-              <Flame size={15} className="fill-current animate-pulse-subtle" />
-            </div>
-            <span className="font-bold tracking-tight text-zinc-900 dark:text-zinc-50 text-base">
-              Bonfire
-            </span>
-          </Link>
-          
+          <BrandLogo></BrandLogo>
           <button
             onClick={toggleSideBar}
             aria-label="Close sidebar"
