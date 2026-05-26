@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { PrimaryLayout, Footer, BrandLogo } from '@bonfire/ui'
+import { PrimaryLayout, Footer, BrandLogo, SideBar } from '@bonfire/ui'
 import { ThemeSelector } from '@bonfire/ui'
 import {
   Server,
@@ -159,74 +159,46 @@ export default function AdminDashboard() {
 
   // --- MOCK CUSTOM SIDEBAR ---
   const customSidebar = ({ sidebarOpen, toggleSideBar }: { sidebarOpen: boolean; toggleSideBar: () => void }) => (
-    <>
-      <aside
-        className={`
-          fixed left-0 top-0 z-50
-          flex h-full w-64 flex-col
-          border-r border-zinc-200/80 bg-white/95 backdrop-blur-md p-6
-          dark:border-zinc-800/80 dark:bg-zinc-950/95
-          shadow-lg transition-transform duration-300 ease-in-out
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-        `}
-      >
-        <div className="flex items-center justify-between mb-8">
-          <BrandLogo />
-          <button
-            onClick={toggleSideBar}
-            className="flex h-7 w-7 items-center justify-center rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 transition-colors"
-          >
-            <X size={15} />
-          </button>
+    <SideBar sidebarOpen={sidebarOpen} toggleSideBar={toggleSideBar}>
+      <nav className="flex flex-col gap-1.5">
+        <div className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest px-3 mb-2">
+          Módulos Administrativos
         </div>
+        <a
+          href="#"
+          className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold bg-orange-50 dark:bg-orange-950/20 text-orange-600 dark:text-orange-400 shadow-sm border-l-2 border-orange-500 rounded-l-none pl-2.5"
+        >
+          <Server size={16} />
+          <span>Infraestrutura</span>
+        </a>
+        <a
+          href="#"
+          onClick={() => showToast('Módulo de banco de dados restrito.', 'info')}
+          className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-zinc-650 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-905 transition-colors"
+        >
+          <Database size={16} />
+          <span>Banco de Dados</span>
+        </a>
+        <a
+          href="#"
+          onClick={() => showToast('Seção de estatísticas e auditorias gerais.', 'info')}
+          className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-zinc-650 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-905 transition-colors"
+        >
+          <History size={16} />
+          <span>Auditoria Geral</span>
+        </a>
 
-        <nav className="flex flex-col gap-1.5">
-          <div className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest px-3 mb-2">
-            Módulos Administrativos
-          </div>
-          <a
-            href="#"
-            className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold bg-orange-50 dark:bg-orange-950/20 text-orange-600 dark:text-orange-400 shadow-sm border-l-2 border-orange-500 rounded-l-none pl-2.5"
-          >
-            <Server size={16} />
-            <span>Infraestrutura</span>
-          </a>
-          <a
-            href="#"
-            onClick={() => showToast('Módulo de banco de dados restrito.', 'info')}
-            className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-zinc-650 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-900 transition-colors"
-          >
-            <Database size={16} />
-            <span>Banco de Dados</span>
-          </a>
-          <a
-            href="#"
-            onClick={() => showToast('Seção de estatísticas e auditorias gerais.', 'info')}
-            className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-zinc-650 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-900 transition-colors"
-          >
-            <History size={16} />
-            <span>Auditoria Geral</span>
-          </a>
+        <div className="my-3 border-t border-zinc-200 dark:border-zinc-800" />
 
-          <div className="my-3 border-t border-zinc-200 dark:border-zinc-800" />
-
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-500 w-full text-left"
-          >
-            <LogOut size={16} />
-            <span>Encerrar Sessão</span>
-          </button>
-        </nav>
-      </aside>
-
-      {sidebarOpen && (
-        <div
-          onClick={toggleSideBar}
-          className="fixed inset-0 z-30 bg-zinc-950/30 backdrop-blur-sm transition-all duration-300"
-        />
-      )}
-    </>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-500 w-full text-left"
+        >
+          <LogOut size={16} />
+          <span>Encerrar Sessão</span>
+        </button>
+      </nav>
+    </SideBar>
   )
 
   return (
