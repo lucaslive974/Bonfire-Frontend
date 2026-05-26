@@ -54,8 +54,8 @@ export function PrimaryLayout({ children }: Props) {
             {children}
           </div>
         </div>
+        <Footer />
       </main>
-      <Footer />
     </div>
   )
 }
