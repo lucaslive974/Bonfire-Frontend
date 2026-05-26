@@ -48,8 +48,8 @@ export function Header({ toggleSideBar }: HeaderProps) {
               <span className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
                 {session.user.name}
               </span>
-              <span className="text-[9px] text-zinc-400 dark:text-zinc-500 font-semibold tracking-wider uppercase">
-                Operador
+              <span className="text-[10px] capitalize text-zinc-400 dark:text-zinc-500 font-semibold tracking-wider">
+                {session.user.roleCnName || 'Operador'}
               </span>
             </div>
           )}
