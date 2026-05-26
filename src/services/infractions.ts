@@ -51,12 +51,3 @@ export class InfractionService extends BaseService {
 }
 
 export const infractionService = new InfractionService()
-
-// Backward compatibility exports
-export async function GetAutoInfractions(date?: string, ai?: string): Promise<AutoData[]> {
-  return infractionService.getAutoInfractions(date, ai)
-}
-
-export async function PostAutoInfraction(file: File) {
-  return infractionService.postAutoInfraction(file)
-}

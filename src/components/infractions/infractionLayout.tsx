@@ -1,41 +1,12 @@
 'use client'
 
-import { DEFAULTTIMEOUT } from '@/lib/utils'
-import { AutoData } from '@/schemas/Infractions'
-import { GetAutoInfractions } from '@/services/infractions'
-import { useCallback, useEffect, useState } from 'react'
+import { useInfractionsViewModel } from '@/hooks/useInfractionsViewModel'
 import { ShieldAlert } from 'lucide-react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 
 export function InfractionLayout() {
-  // Data fetch
-  const [date, setDate] = useState('')
-  const [ai, setAi] = useState('')
-  const [infracoes, setInfracoes] = useState<AutoData[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [scheduleId, setScheduleId] = useState<NodeJS.Timeout | null>(null)
-
-  const wrapper = useCallback(
-    async function wrapper() {
-      try {
-        const res = await GetAutoInfractions(date, ai)
-        setInfracoes(res)
-      } finally {
-        setIsLoading(false)
-        setScheduleId(null)
-      }
-    },
-    [date, ai],
-  )
-
-  useEffect(() => {
-    setIsLoading(true)
-    if (scheduleId) clearTimeout(scheduleId)
-    const id = setTimeout(wrapper, DEFAULTTIMEOUT)
-
-    return () => clearTimeout(id)
-  }, [date, ai])
+  const { infracoes, setDate, setAi, isLoading } = useInfractionsViewModel()
 
   return (
     <div className="w-full flex flex-col animate-in fade-in duration-300">

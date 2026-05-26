@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useNotifications } from '@/hooks/useNotifications'
 import { ImportFormData } from '@/schemas/ImportFormSchema'
-import { PostRecurse } from '@/services/recurse'
+import { recurseService } from '@/services/recurse'
 import { notify } from '@/lib/utils'
 
 export function useRecurses() {
@@ -14,7 +14,7 @@ export function useRecurses() {
     if (!data.file) return
     try {
       instance === 1 ? setImportingFirst(true) : setImportingSecond(true)
-      const { event } = await PostRecurse(data.file, instance)
+      const { event } = await recurseService.postRecurse(data.file, instance)
       notify.success(event.message)
       handleInsertNotification(event)
     } finally {

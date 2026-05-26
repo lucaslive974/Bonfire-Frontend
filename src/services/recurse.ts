@@ -60,16 +60,3 @@ export class RecurseService extends BaseService {
 }
 
 export const recurseService = new RecurseService()
-
-// Backward compatibility exports
-export async function GetRecurses(
-  date: string,
-  ata: string,
-  instance = 1,
-): Promise<RecurseData[]> {
-  return recurseService.getRecurses(date, ata, instance)
-}
-
-export async function PostRecurse(file: File, instance = 1) {
-  return recurseService.postRecurse(file, instance)
-}

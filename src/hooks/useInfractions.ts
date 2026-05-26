@@ -1,5 +1,5 @@
 import { ImportFormData } from '@/schemas/ImportFormSchema'
-import { PostAutoInfraction } from '@/services/infractions'
+import { infractionService } from '@/services/infractions'
 import { useState } from 'react'
 import { useNotifications } from './useNotifications'
 import { notify } from '@/lib/utils'
@@ -13,7 +13,7 @@ export function useInfractions() {
     if (!data.file) return
     try {
       setImporting(true)
-      const { event } = await PostAutoInfraction(data.file)
+      const { event } = await infractionService.postAutoInfraction(data.file)
       notify.success(event.message)
       handleInsertNotification(event)
     } finally {
