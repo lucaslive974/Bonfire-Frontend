@@ -2,7 +2,7 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="w-full mt-12 pl-4 pr-4 pt-6 pb-4 border-t border-zinc-200/80 dark:border-zinc-800/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400 dark:text-zinc-500">
+    <footer className="w-full mt-12 p-4 border-t border-zinc-200/80 dark:border-zinc-800/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400 dark:text-zinc-500">
       <div className="flex items-center gap-1">
         <span className="font-semibold text-zinc-600 dark:text-zinc-400">© {currentYear} Bonfire.</span>
         <span>Todos os direitos reservados.</span>

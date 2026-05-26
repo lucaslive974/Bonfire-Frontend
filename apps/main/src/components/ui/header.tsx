@@ -5,7 +5,7 @@ import { useAuth } from '@/hooks/useAuth'
 import Link from 'next/link'
 
 import { NotificationBar } from './notificationBar'
-import { ThemeBtn } from './themeBtn'
+import { ThemeSelector } from '@bonfire/ui'
 
 type HeaderProps = {
   toggleSideBar: () => void
@@ -58,10 +58,8 @@ export function Header({ toggleSideBar }: HeaderProps) {
             <div className="h-5 w-[1px] bg-zinc-200 dark:bg-zinc-800 hidden sm:block" />
           )}
 
-          <div className="flex items-center gap-1.5">
-            <ThemeBtn />
+            <ThemeSelector/>
             <NotificationBar />
-          </div>
         </div>
 
       </header>

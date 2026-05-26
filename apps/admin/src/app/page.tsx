@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { PrimaryLayout, Footer, BrandLogo } from '@bonfire/ui'
+import { ThemeSelector } from '@bonfire/ui'
 import {
   Server,
   Database,
@@ -10,20 +11,12 @@ import {
   Settings2,
   Activity,
   LogOut,
-  Flame,
-  ShieldCheck,
   CheckCircle2,
-  AlertCircle,
   UserCheck,
-  ChevronRight,
-  Sun,
-  Moon,
-  Monitor,
   Loader2,
   X,
   Sliders
 } from 'lucide-react'
-import { useTheme } from 'next-themes'
 
 // Simple mock logger actions
 const initialAuditLogs = [
@@ -36,15 +29,14 @@ const initialAuditLogs = [
 
 export default function AdminDashboard() {
   const router = useRouter()
-  const { theme, setTheme } = useTheme()
   const [session, setSession] = useState<{ name: string; email: string; role: string } | null>(null)
-  
+
   // System Configurations Toggles
   const [maintenance, setMaintenance] = useState(false)
   const [debugLogs, setDebugLogs] = useState(true)
   const [syncInterval, setSyncInterval] = useState(15)
   const [auditLogs, setAuditLogs] = useState(initialAuditLogs)
-  
+
   // UI states
   const [mounted, setMounted] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
@@ -142,31 +134,7 @@ export default function AdminDashboard() {
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Theme Selector */}
-          <div className="flex items-center p-0.5 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/40 dark:border-zinc-800/40">
-            <button
-              onClick={() => setTheme('light')}
-              className={`p-1.5 rounded-md transition-colors ${theme === 'light' ? 'bg-white dark:bg-zinc-800 text-amber-500' : 'text-zinc-400'}`}
-              title="Light Mode"
-            >
-              <Sun size={13} />
-            </button>
-            <button
-              onClick={() => setTheme('dark')}
-              className={`p-1.5 rounded-md transition-colors ${theme === 'dark' ? 'bg-white dark:bg-zinc-800 text-amber-500' : 'text-zinc-400'}`}
-              title="Dark Mode"
-            >
-              <Moon size={13} />
-            </button>
-            <button
-              onClick={() => setTheme('system')}
-              className={`p-1.5 rounded-md transition-colors ${theme === 'system' ? 'bg-white dark:bg-zinc-800 text-amber-500' : 'text-zinc-400'}`}
-              title="System Default"
-            >
-              <Monitor size={13} />
-            </button>
-          </div>
-
+          <ThemeSelector />
           <div className="h-5 w-[1px] bg-zinc-200 dark:bg-zinc-800 hidden sm:block" />
 
           {/* User Profile Info */}
@@ -263,15 +231,14 @@ export default function AdminDashboard() {
 
   return (
     <PrimaryLayout header={customHeader} sidebar={customSidebar} footer={<Footer />}>
-      
+
       {/* Dynamic Toast Feedback Card */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-bottom-5 duration-200">
-          <div className={`flex items-center gap-2.5 px-4 py-3 rounded-2xl border shadow-xl backdrop-blur-md ${
-            toastType === 'success'
-              ? 'bg-emerald-50 dark:bg-emerald-950/90 text-emerald-700 dark:text-emerald-300 border-emerald-200/80 dark:border-emerald-900/50'
-              : 'bg-amber-50 dark:bg-amber-950/90 text-amber-700 dark:text-amber-300 border-amber-200/80 dark:border-amber-900/50'
-          }`}>
+          <div className={`flex items-center gap-2.5 px-4 py-3 rounded-2xl border shadow-xl backdrop-blur-md ${toastType === 'success'
+            ? 'bg-emerald-50 dark:bg-emerald-950/90 text-emerald-700 dark:text-emerald-300 border-emerald-200/80 dark:border-emerald-900/50'
+            : 'bg-amber-50 dark:bg-amber-950/90 text-amber-700 dark:text-amber-300 border-amber-200/80 dark:border-amber-900/50'
+            }`}>
             <CheckCircle2 size={16} className="shrink-0" />
             <span className="text-xs font-bold">{toastMessage}</span>
           </div>
@@ -303,7 +270,7 @@ export default function AdminDashboard() {
 
       {/* Grid of 4 System Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        
+
         {/* Metric 1: API */}
         <div className="p-5 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/80 shadow-sm flex flex-col justify-between h-[130px] text-left">
           <div className="flex justify-between items-center">
@@ -363,7 +330,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-        
+
         {/* Left Column (2/3): Audit Logs Table */}
         <div className="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/80 shadow-sm flex flex-col text-left space-y-4">
           <div>
@@ -419,7 +386,7 @@ export default function AdminDashboard() {
           </div>
 
           <div className="space-y-4">
-            
+
             {/* Toggle 1: Maintenance Mode */}
             <div
               onClick={toggleMaintenance}

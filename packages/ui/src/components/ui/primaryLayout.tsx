@@ -44,9 +44,9 @@ export function PrimaryLayout({ children, header, sidebar, footer }: PrimaryLayo
       <main
         ref={mainRef}
         onScroll={handleScroll}
-        className="flex-1 w-full overflow-y-auto no-scrollbar bg-zinc-50/30 dark:bg-zinc-950/20 scroll-smooth"
+        className="flex flex-col flex-1 w-full overflow-y-auto no-scrollbar bg-zinc-50/30 dark:bg-zinc-950/20 scroll-smooth"
       >
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-in fade-in duration-300 flex flex-col min-h-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-in fade-in duration-300 flex flex-col min-h-full flex-1">
           <div className="flex-1">
             {children}
           </div>
