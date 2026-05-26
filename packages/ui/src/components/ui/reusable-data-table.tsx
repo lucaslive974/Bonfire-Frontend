@@ -12,7 +12,7 @@ import {
   Table as ReactTable,
 } from '@tanstack/react-table'
 
-import { Button } from '@bonfire/ui'
+import { Button } from './button'
 import {
   Table,
   TableBody,
@@ -20,14 +20,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from './table'
 
 import {
   TableWrapper,
   TableWrapperFilters,
   TableWrapperBody,
   TableWrapperFooter
-} from '@/components/ui/tableWrappers'
+} from './tableWrappers'
 
 import { Ban, ChevronLeft, ChevronRight } from 'lucide-react'
 

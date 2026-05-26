@@ -1,11 +1,8 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { Button } from '@bonfire/ui'
-import { Input } from '@/components/ui/input'
-import { Dialog, DialogTrigger } from '@/components/ui/dialog'
+import { Button, Input, Dialog, DialogTrigger, ReusableDataTable } from '@bonfire/ui'
 import { DialogInsertLine } from '@/components/lines/dialogLines'
-import { ReusableDataTable } from '@/components/ui/reusable-data-table'
 import { Search, Plus } from 'lucide-react'
 
 interface DataTableProps<TData, TValue> {

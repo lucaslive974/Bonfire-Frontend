@@ -1,15 +1,15 @@
 'use client'
 
 import { useState, ReactNode } from 'react'
-import { Checkbox } from '@/components/ui/checkbox'
+import { Checkbox } from './checkbox'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@bonfire/ui'
-import { Dialog, DialogTrigger } from '@/components/ui/dialog'
+} from './dropdown-menu'
+import { Button } from './button'
+import { Dialog, DialogTrigger } from './dialog'
 import { Edit3, MoreHorizontal, Trash2 } from 'lucide-react'
 import { ColumnDef } from '@tanstack/react-table'
 

@@ -16,7 +16,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger
-} from "@/components/ui/collapsible"
+} from "@bonfire/ui"
 
 import { usePathname } from "next/navigation"
 import { useAuth } from '@/hooks/useAuth'

@@ -1,5 +1,5 @@
 import { SessionWrapper } from '@/components/ui/sessionWrapper'
-import { Toaster } from '@/components/ui/sonner'
+import { Toaster } from '@bonfire/ui'
 import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes'
 import { ReactNode } from 'react'

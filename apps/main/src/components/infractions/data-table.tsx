@@ -1,8 +1,7 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { Input } from '@/components/ui/input'
-import { ReusableDataTable } from '@/components/ui/reusable-data-table'
+import { Input, ReusableDataTable } from '@bonfire/ui'
 import { Calendar, Search } from 'lucide-react'
 
 interface DataTableProps<TData, TValue> {

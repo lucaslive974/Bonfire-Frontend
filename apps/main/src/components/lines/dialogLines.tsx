@@ -1,14 +1,14 @@
-import { Button } from '@bonfire/ui'
-import { Checkbox } from '@/components/ui/checkbox'
-import { DialogClose } from '@/components/ui/dialog'
 import {
+  Button,
+  Checkbox,
+  DialogClose,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+  Input,
+} from '@bonfire/ui'
 import { useLines } from '@/hooks/useLines'
 import {
   LinesFrameData,
@@ -17,7 +17,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { PenTool, Plus, Trash2 } from 'lucide-react'
-import { ReusableDialog } from '@/components/ui/reusable-dialog'
+import { ReusableDialog } from '@bonfire/ui'
 
 interface DialogContentLineProp {
   line: LinesFrameData

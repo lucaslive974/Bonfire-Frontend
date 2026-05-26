@@ -14,9 +14,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@bonfire/ui'
 
-import { TableWrapper } from '@/components/ui/tableWrappers'
+import { TableWrapper } from '@bonfire/ui'
 import { Ban } from 'lucide-react'
 
 interface DataTableProps<TData, TValue> {

@@ -7,8 +7,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { cn } from '@/lib/utils'
+} from './dialog'
+import { cn } from '../../lib/utils'
 
 interface ReusableDialogProps {
   icon: ReactNode

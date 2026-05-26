@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { Popover, PopoverContent, PopoverTrigger, ScrollArea } from '@bonfire/ui'
 import { useNotifications } from '@/hooks/useNotifications'
 import { NotificationT } from '@/services/localStorage'
 import { Bell, CheckCheck, Trash2, User, Clock, Inbox } from 'lucide-react'

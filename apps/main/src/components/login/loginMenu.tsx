@@ -5,7 +5,7 @@ import { useEffect, Suspense } from 'react'
 import LoginForm from './loginForm'
 import { notify } from '@/lib/utils'
 import { ShieldCheck } from 'lucide-react'
-import { BrandLogoFull } from '@/components/ui/brandLogo'
+import { BrandLogoFull } from '@bonfire/ui'
 
 function LoginMenuContent() {
   const searchParams = useSearchParams()

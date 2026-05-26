@@ -1,6 +1,6 @@
 'use client'
 
-import { selectColumn, ReusableActionsCell } from '@/components/ui/reusable-columns'
+import { selectColumn, ReusableActionsCell } from '@bonfire/ui'
 import { LinesFrameData } from '@/schemas/LinesFrameDataSchema'
 import { ColumnDef } from '@tanstack/react-table'
 import { DialogDeleteLine, DialogEditLine } from './dialogLines'
