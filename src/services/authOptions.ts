@@ -9,9 +9,17 @@ import Keycloak from 'next-auth/providers/keycloak'
 import { getServerSession, type NextAuthOptions } from 'next-auth'
 import { env } from './env'
 
+import { tokenDecoder } from './auth/tokenDecoder'
+
 declare module "next-auth" {
   interface Session {
     accessToken?: string
+    user?: {
+      name?: string | null
+      email?: string | null
+      image?: string | null
+      roleCnName?: string | null
+    }
   }
 }
 
@@ -110,6 +118,15 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken
+      if (token.accessToken) {
+        const decoded = tokenDecoder.decode<{ role_cn_name?: string }>(token.accessToken)
+        if (decoded?.role_cn_name) {
+          session.user = {
+            ...session.user,
+            roleCnName: decoded.role_cn_name,
+          }
+        }
+      }
       return session
     },
   },

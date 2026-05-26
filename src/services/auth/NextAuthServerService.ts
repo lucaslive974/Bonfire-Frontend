@@ -27,7 +27,12 @@ export class NextAuthServerService implements IAuthService {
       if (!session) return null
 
       return {
-        user: session.user,
+        user: session.user ? {
+          name: session.user.name,
+          email: session.user.email,
+          image: session.user.image,
+          roleCnName: session.user.roleCnName || null,
+        } : undefined,
         accessToken: session.accessToken,
       }
     } catch (error) {

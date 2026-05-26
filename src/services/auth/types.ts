@@ -3,6 +3,7 @@ export interface UserSession {
   email?: string | null
   image?: string | null
   accessToken?: string
+  roleCnName?: string | null
 }
 
 export interface AuthSession {
