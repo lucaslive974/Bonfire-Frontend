@@ -44,3 +44,17 @@ export const notify = {
     toast(normalize(msg, "Informação"))
   }
 }
+
+import { formatDistanceToNow, parse } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
+
+export function getRelativeTime(dateStr: string): string {
+  try {
+    const normalized = dateStr.replace(',', '')
+    const parsed = parse(normalized, 'dd/MM/yyyy HH:mm:ss', new Date())
+    return formatDistanceToNow(parsed, { addSuffix: true, locale: ptBR })
+  } catch {
+    return dateStr
+  }
+}
+

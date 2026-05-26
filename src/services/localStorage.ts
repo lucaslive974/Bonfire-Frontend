@@ -77,3 +77,15 @@ export function clearNotifications() {
 
   window.localStorage.removeItem(STORAGE_KEY)
 }
+
+export function deleteNotification(id: string): NotificationT[] {
+  if (typeof window === 'undefined') return []
+
+  const notifications = getNotifications()
+  const updated = notifications.filter((n) => n.id !== id)
+
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
+
+  return updated
+}
+

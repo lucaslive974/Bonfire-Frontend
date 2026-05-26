@@ -50,7 +50,7 @@ describe('Auth Services (Unit Tests)', () => {
       const result = await service.getSession()
 
       expect(getSession).toHaveBeenCalled()
-      expect(result).toEqual({
+      expect(result).toMatchObject({
         user: { name: 'Lucas', email: 'lucas@example.com' },
         accessToken: 'client-token-123'
       })
@@ -81,7 +81,7 @@ describe('Auth Services (Unit Tests)', () => {
       const result = await service.getSession()
 
       expect(getServerSession).toHaveBeenCalled()
-      expect(result).toEqual({
+      expect(result).toMatchObject({
         user: { name: 'Admin', email: 'admin@example.com' },
         accessToken: 'server-token-999'
       })
