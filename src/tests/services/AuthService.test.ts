@@ -42,7 +42,8 @@ describe('Auth Services (Unit Tests)', () => {
     it('deve retornar a sessão mapeada quando o usuário estiver autenticado', async () => {
       const mockSession = {
         user: { name: 'Lucas', email: 'lucas@example.com' },
-        accessToken: 'client-token-123'
+        accessToken: 'client-token-123',
+        expires: '2026-05-25T22:45:37-03:00'
       }
       vi.mocked(getSession).mockResolvedValue(mockSession)
 
@@ -72,7 +73,8 @@ describe('Auth Services (Unit Tests)', () => {
     it('deve retornar a sessão do servidor mapeada quando o usuário estiver autenticado', async () => {
       const mockSession = {
         user: { name: 'Admin', email: 'admin@example.com' },
-        accessToken: 'server-token-999'
+        accessToken: 'server-token-999',
+        expires: '2026-05-25T22:45:37-03:00'
       }
       vi.mocked(getServerSession).mockResolvedValue(mockSession)
 

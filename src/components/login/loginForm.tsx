@@ -1,13 +1,12 @@
 'use client'
 
-import { useAuth } from '@/hooks/useAuth'
+import { useLoginViewModel } from '@/hooks/useLoginViewModel'
 import { Button } from '../UI/button'
 import { LogIn, LogOut, LayoutDashboard, User, Lock, Eye, EyeOff, Loader2 } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
 
 export function SignOutBtn() {
-  const { logout } = useAuth()
+  const { logout } = useLoginViewModel()
   return (
     <Button
       variant="outline"
@@ -20,34 +19,19 @@ export function SignOutBtn() {
   )
 }
 
-export default function LoginBtn() {
-  const { session, login } = useAuth()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!username || !password) {
-      setErrorMessage('Por favor, preencha todos os campos.')
-      return
-    }
-
-    setIsLoading(true)
-    setErrorMessage('')
-
-    try {
-      await login('credentials', { username, password })
-      window.location.href = '/'
-    } catch (err: any) {
-      console.error('[Login Form] Auth failed:', err)
-      setErrorMessage('Usuário ou senha inválidos.')
-    } finally {
-      setIsLoading(false)
-    }
-  }
+export default function LoginForm() {
+  const {
+    session,
+    username,
+    setUsername,
+    password,
+    setPassword,
+    showPassword,
+    setShowPassword,
+    isLoading,
+    errorMessage,
+    handleSubmit,
+  } = useLoginViewModel()
 
   if (session) {
     const name = session.user?.name || ''
@@ -118,7 +102,7 @@ export default function LoginBtn() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             disabled={isLoading}
-            className="w-full pl-10 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 dark:focus:ring-orange-500/20 dark:focus:border-orange-500 disabled:opacity-50 text-zinc-800 dark:text-zinc-100"
+            className="w-full pl-10 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 dark:focus:ring-orange-500/20 dark:focus:border-orange-500 disabled:opacity-50 text-zinc-800 dark:text-zinc-100"
           />
         </div>
       </div>
@@ -137,7 +121,7 @@ export default function LoginBtn() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
-            className="w-full pl-10 pr-10 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 dark:focus:ring-orange-500/20 dark:focus:border-orange-500 disabled:opacity-50 text-zinc-800 dark:text-zinc-100"
+            className="w-full pl-10 pr-10 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 dark:focus:ring-orange-500/20 dark:focus:border-orange-500 disabled:opacity-50 text-zinc-800 dark:text-zinc-100"
           />
           <button
             type="button"
@@ -154,7 +138,7 @@ export default function LoginBtn() {
       <Button
         type="submit"
         disabled={isLoading}
-        className="w-full flex items-center justify-center gap-2 font-bold py-6 text-sm bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-2xl shadow-md transition-all duration-200 mt-2 disabled:opacity-75"
+        className="w-full flex items-center justify-center gap-2 font-bold py-6 text-sm bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-650 hover:to-amber-650 text-white rounded-2xl shadow-md transition-all duration-200 mt-2 disabled:opacity-75"
       >
         {isLoading ? (
           <Loader2 className="h-4 w-4 animate-spin" />
@@ -163,5 +147,6 @@ export default function LoginBtn() {
         )}
         <span>{isLoading ? 'Autenticando...' : 'Entrar no Sistema'}</span>
       </Button>
-    </form>)
+    </form>
+  )
 }

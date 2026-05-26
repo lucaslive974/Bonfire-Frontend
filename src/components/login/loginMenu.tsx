@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useEffect, Suspense } from 'react'
-import LoginBtn from './loginBtn'
+import LoginForm from './loginForm'
 import { notify } from '@/lib/utils'
 import { ShieldCheck } from 'lucide-react'
 import { BrandLogoFull } from '../UI/brandLogo'
@@ -28,7 +28,7 @@ function LoginMenuContent() {
 
       {/* Button and Status */}
       <div className="w-full">
-        <LoginBtn />
+        <LoginForm />
       </div>
 
       {/* Security badge at bottom */}
