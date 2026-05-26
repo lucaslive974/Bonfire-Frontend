@@ -1,13 +1,6 @@
 import { Button } from '@/components/UI/button'
 import { Checkbox } from '@/components/UI/checkbox'
-import {
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/UI/dialog'
+import { DialogClose } from '@/components/UI/dialog'
 import {
   Form,
   FormControl,
@@ -21,6 +14,7 @@ import { VehicleSchema, VehiclesData } from '@/schemas/VechicleSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { PenTool, Plus, Trash2 } from 'lucide-react'
+import { ReusableDialog } from '@/components/UI/reusable-dialog'
 
 type DialogContentVehicleProp = {
   vehicle: VehiclesData
@@ -43,26 +37,34 @@ export function DialogEditVehicle({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleUpdate)}>
-        <DialogContent className="sm:max-w-[425px] rounded-3xl p-6 bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-xl animate-in zoom-in-95 duration-200">
-          
-          <DialogHeader className="flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b border-zinc-100 dark:border-zinc-900 pb-4">
-            <div className="p-3 bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 rounded-2xl border border-amber-100 dark:border-amber-900/50">
-              <PenTool className="h-5 w-5 animate-pulse-subtle" />
-            </div>
-            <div className="space-y-1 text-left">
-              <DialogTitle className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50">Editar Veículo</DialogTitle>
-              <DialogDescription className="text-xs text-zinc-500 dark:text-zinc-400">
-                Faça alterações cadastrais no veículo selecionado.
-              </DialogDescription>
-            </div>
-          </DialogHeader>
-
-          <div className="grid gap-5 py-4">
+        <ReusableDialog
+          icon={<PenTool className="h-5 w-5 animate-pulse-subtle" />}
+          iconClassName="bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 border-amber-100 dark:border-amber-900/50"
+          title="Editar Veículo"
+          description="Faça alterações cadastrais no veículo selecionado."
+          footerActions={
+            <>
+              <DialogClose asChild>
+                <Button type="button" variant="outline" className="rounded-xl font-bold py-5 text-xs">
+                  Cancelar
+                </Button>
+              </DialogClose>
+              <Button 
+                type="submit" 
+                onClick={form.handleSubmit(handleUpdate)}
+                className="rounded-xl font-bold py-5 text-xs bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-850 dark:hover:bg-zinc-50"
+              >
+                Salvar Alterações
+              </Button>
+            </>
+          }
+        >
+          <div className="grid gap-5">
             <FormField
               control={form.control}
               name="NUM_VEIC"
               render={({ field }) => (
-                <FormItem className="space-y-1.5">
+                <FormItem className="space-y-1.5 text-left">
                   <FormLabel className="text-xs font-bold text-zinc-600 dark:text-zinc-400">Número do Veículo</FormLabel>
                   <FormControl>
                     <Input
@@ -78,7 +80,7 @@ export function DialogEditVehicle({
               control={form.control}
               name="IDN_PLAC_VEIC"
               render={({ field }) => (
-                <FormItem className="space-y-1.5">
+                <FormItem className="space-y-1.5 text-left">
                   <FormLabel className="text-xs font-bold text-zinc-600 dark:text-zinc-400">Placa do Veículo</FormLabel>
                   <FormControl>
                     <Input
@@ -91,7 +93,6 @@ export function DialogEditVehicle({
               )}
             />
             
-            {/* Interactive Toggle Card */}
             <FormField
               control={form.control}
               name="VEIC_ATIV_EMPR"
@@ -117,22 +118,7 @@ export function DialogEditVehicle({
               )}
             />
           </div>
-
-          <DialogFooter className="border-t border-zinc-100 dark:border-zinc-900 pt-4 flex gap-2">
-            <DialogClose asChild>
-              <Button type="button" variant="outline" className="rounded-xl font-bold py-5 text-xs">
-                Cancelar
-              </Button>
-            </DialogClose>
-            <Button 
-              type="submit" 
-              onClick={form.handleSubmit(handleUpdate)}
-              className="rounded-xl font-bold py-5 text-xs bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-850 dark:hover:bg-zinc-50"
-            >
-              Salvar Alterações
-            </Button>
-          </DialogFooter>
-        </DialogContent>
+        </ReusableDialog>
       </form>
     </Form>
   )
@@ -144,41 +130,36 @@ export function DialogDeleteVehicle({
   const { handleDelete } = useVehicles()
 
   return (
-    <DialogContent className="sm:max-w-[400px] rounded-3xl p-6 bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-xl animate-in zoom-in-95 duration-200">
-      <DialogHeader className="flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b border-zinc-100 dark:border-zinc-900 pb-4">
-        <div className="p-3 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 rounded-2xl border border-red-100 dark:border-red-900/50">
-          <Trash2 className="h-5 w-5 animate-bounce-subtle" />
-        </div>
-        <div className="space-y-1 text-left">
-          <DialogTitle className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50">Deletar Veículo</DialogTitle>
-          <DialogDescription className="text-xs text-zinc-500 dark:text-zinc-400">
-            Confirme a exclusão definitiva deste veículo.
-          </DialogDescription>
-        </div>
-      </DialogHeader>
-      
-      <div className="py-4 text-left">
+    <ReusableDialog
+      icon={<Trash2 className="h-5 w-5 animate-bounce-subtle" />}
+      iconClassName="bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 rounded-2xl border border-red-100 dark:border-red-900/50"
+      title="Deletar Veículo"
+      description="Confirme a exclusão definitiva deste veículo."
+      maxWidthClassName="sm:max-w-[400px]"
+      footerActions={
+        <>
+          <DialogClose asChild>
+            <Button type="button" variant="outline" className="rounded-xl font-bold py-5 text-xs">
+              Cancelar
+            </Button>
+          </DialogClose>
+          <Button
+            variant="destructive"
+            type="submit"
+            onClick={() => handleDelete(NUM_VEIC)}
+            className="rounded-xl font-bold py-5 text-xs bg-red-600 hover:bg-red-700 text-white border-transparent"
+          >
+            Excluir Veículo
+          </Button>
+        </>
+      }
+    >
+      <div className="text-left">
         <p className="text-xs text-zinc-650 dark:text-zinc-400 leading-relaxed bg-zinc-50 dark:bg-zinc-900/40 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800/80">
           Atenção: Esta ação é definitiva e removerá todos os dados e cadastros vinculados ao veículo de código <strong className="text-zinc-900 dark:text-zinc-100">{NUM_VEIC}</strong>.
         </p>
       </div>
-
-      <DialogFooter className="border-t border-zinc-100 dark:border-zinc-900 pt-4 flex gap-2">
-        <DialogClose asChild>
-          <Button type="button" variant="outline" className="rounded-xl font-bold py-5 text-xs">
-            Cancelar
-          </Button>
-        </DialogClose>
-        <Button
-          variant="destructive"
-          type="submit"
-          onClick={() => handleDelete(NUM_VEIC)}
-          className="rounded-xl font-bold py-5 text-xs bg-red-600 hover:bg-red-700 text-white"
-        >
-          Excluir Veículo
-        </Button>
-      </DialogFooter>
-    </DialogContent>
+    </ReusableDialog>
   )
 }
 
@@ -198,26 +179,34 @@ export function DialogIncludeVehicle({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleInsert)}>
-        <DialogContent className="sm:max-w-[425px] rounded-3xl p-6 bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-xl animate-in zoom-in-95 duration-200">
-          
-          <DialogHeader className="flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b border-zinc-100 dark:border-zinc-900 pb-4">
-            <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-2xl border border-emerald-100 dark:border-emerald-900/50">
-              <Plus className="h-5 w-5" />
-            </div>
-            <div className="space-y-1 text-left">
-              <DialogTitle className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50">Cadastrar Veículo</DialogTitle>
-              <DialogDescription className="text-xs text-zinc-500 dark:text-zinc-400">
-                Adicione um novo veículo ao cadastro da frota municipal.
-              </DialogDescription>
-            </div>
-          </DialogHeader>
-
-          <div className="grid gap-5 py-4">
+        <ReusableDialog
+          icon={<Plus className="h-5 w-5" />}
+          iconClassName="bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-2xl border border-emerald-100 dark:border-emerald-900/50"
+          title="Cadastrar Veículo"
+          description="Adicione um novo veículo ao cadastro da frota municipal."
+          footerActions={
+            <>
+              <DialogClose asChild>
+                <Button type="button" variant="outline" className="rounded-xl font-bold py-5 text-xs">
+                  Cancelar
+                </Button>
+              </DialogClose>
+              <Button 
+                type="submit" 
+                onClick={form.handleSubmit(handleInsert)}
+                className="rounded-xl font-bold py-5 text-xs bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-850 dark:hover:bg-zinc-50"
+              >
+                Criar Veículo
+              </Button>
+            </>
+          }
+        >
+          <div className="grid gap-5">
             <FormField
               control={form.control}
               name="NUM_VEIC"
               render={({ field }) => (
-                <FormItem className="space-y-1.5">
+                <FormItem className="space-y-1.5 text-left">
                   <FormLabel className="text-xs font-bold text-zinc-600 dark:text-zinc-400">Número do Veículo</FormLabel>
                   <FormControl>
                     <Input
@@ -233,7 +222,7 @@ export function DialogIncludeVehicle({
               control={form.control}
               name="IDN_PLAC_VEIC"
               render={({ field }) => (
-                <FormItem className="space-y-1.5">
+                <FormItem className="space-y-1.5 text-left">
                   <FormLabel className="text-xs font-bold text-zinc-600 dark:text-zinc-400">Placa do Veículo</FormLabel>
                   <FormControl>
                     <Input
@@ -246,7 +235,6 @@ export function DialogIncludeVehicle({
               )}
             />
             
-            {/* Interactive Toggle Card */}
             <FormField
               control={form.control}
               name="VEIC_ATIV_EMPR"
@@ -272,24 +260,8 @@ export function DialogIncludeVehicle({
               )}
             />
           </div>
-
-          <DialogFooter className="border-t border-zinc-100 dark:border-zinc-900 pt-4 flex gap-2">
-            <DialogClose asChild>
-              <Button type="button" variant="outline" className="rounded-xl font-bold py-5 text-xs">
-                Cancelar
-              </Button>
-            </DialogClose>
-            <Button 
-              type="submit" 
-              onClick={form.handleSubmit(handleInsert)}
-              className="rounded-xl font-bold py-5 text-xs bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-850 dark:hover:bg-zinc-50"
-            >
-              Criar Veículo
-            </Button>
-          </DialogFooter>
-        </DialogContent>
+        </ReusableDialog>
       </form>
     </Form>
   )
 }
-
