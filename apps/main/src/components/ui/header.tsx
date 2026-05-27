@@ -1,7 +1,7 @@
 'use client'
 
 import { AlignJustify, Flame } from 'lucide-react'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@bonfire/core'
 import { useNotifications } from '@/hooks/useNotifications'
 import Link from 'next/link'
 
@@ -11,8 +11,15 @@ type HeaderProps = {
   toggleSideBar: () => void
 }
 
+interface AppUser {
+  name?: string | null
+  email?: string | null
+  image?: string | null
+  roleCnName?: string | null
+}
+
 export function Header({ toggleSideBar }: HeaderProps) {
-  const { session } = useAuth()
+  const { session } = useAuth<AppUser>()
   const notificationsProps = useNotifications()
 
   return (
