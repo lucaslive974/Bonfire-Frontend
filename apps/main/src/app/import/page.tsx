@@ -1,6 +1,6 @@
 import { PrimaryLayout } from '@/components/ui/primaryLayout'
 import { ImportForm } from '@/components/import/importForm'
-import { PageHeader } from '@/components/ui/page-header'
+import { PageHeader } from '@bonfire/ui'
 import { UploadCloud } from 'lucide-react'
 
 export const metadata = {

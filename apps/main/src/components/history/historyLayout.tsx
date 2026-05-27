@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { PageHeader } from '@bonfire/ui'
 
 function getEventIcon(notification: NotificationT) {
   const message = (notification.message || '').toLowerCase()
@@ -57,27 +58,21 @@ export function HistoryLayout() {
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-8 space-y-6">
-      {/* HEADER SECTION */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b pb-6 dark:border-zinc-800">
-        <div className="text-left">
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
-            Histórico de Operações
-          </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-            Audite e acompanhe todas as importações de arquivos, ações do sistema e logs de usuários.
-          </p>
-        </div>
-
-        {logs.length > 0 && (
-          <button
-            onClick={handleClearAll}
-            className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-950/30 dark:text-red-400 dark:hover:bg-red-950/60 rounded-lg transition-colors border border-red-200 dark:border-red-900/30 shrink-0"
-          >
-            <Trash2 size={14} />
-            Limpar Histórico
-          </button>
-        )}
-      </div>
+      <PageHeader
+        title="Histórico de Operações"
+        description="Audite e acompanhe todas as importações de arquivos, ações do sistema e logs de usuários."
+        rightContent={
+          logs.length > 0 ? (
+            <button
+              onClick={handleClearAll}
+              className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-950/30 dark:text-red-400 dark:hover:bg-red-950/60 rounded-lg transition-colors border border-red-200 dark:border-red-900/30 shrink-0"
+            >
+              <Trash2 size={14} />
+              Limpar Histórico
+            </button>
+          ) : null
+        }
+      />
 
       {/* FILTER & SEARCH BAR */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-zinc-50 dark:bg-zinc-900/40 p-4 rounded-xl border border-zinc-200/60 dark:border-zinc-800/80">

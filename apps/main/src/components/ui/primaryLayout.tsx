@@ -1,8 +1,8 @@
 'use client'
 import { ReactNode } from 'react'
-import { PrimaryLayout as SharedPrimaryLayout, Footer } from '@bonfire/ui'
+import { PrimaryLayout as SharedPrimaryLayout, Footer, SideBar } from '@bonfire/ui'
 import { Header } from './header'
-import { SideBar } from './sidebar'
+import { MenuBar } from './menubar'
 
 interface Props {
   children?: ReactNode
@@ -13,7 +13,9 @@ export function PrimaryLayout({ children }: Props) {
     <SharedPrimaryLayout
       header={({ toggleSideBar }) => <Header toggleSideBar={toggleSideBar} />}
       sidebar={({ sidebarOpen, toggleSideBar }) => (
-        <SideBar sidebarOpen={sidebarOpen} toggleSideBar={toggleSideBar} />
+        <SideBar sidebarOpen={sidebarOpen} toggleSideBar={toggleSideBar}>
+          <MenuBar />
+        </SideBar>
       )}
       footer={<Footer />}
     >
