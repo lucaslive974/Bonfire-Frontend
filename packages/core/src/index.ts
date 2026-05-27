@@ -1,5 +1,6 @@
 export * from './services/BaseService'
 export * from './services/http/HttpClient.interface'
+export * from './services/http/AxiosHttpClient'
 export * from './services/auth/AuthService.interface'
 export * from './services/auth/types'
 export * from './services/auth/NextAuthOptions'
