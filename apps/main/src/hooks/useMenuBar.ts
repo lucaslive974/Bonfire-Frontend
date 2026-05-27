@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from "next/navigation"
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@bonfire/core'
 
 export function useMenuBar() {
   const pathname = usePathname()

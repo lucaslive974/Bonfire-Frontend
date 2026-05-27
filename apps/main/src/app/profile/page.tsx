@@ -1,4 +1,4 @@
-import { authServerService } from '@/services/auth/NextAuthServerService'
+import { authServerService } from '@bonfire/core'
 import { PrimaryLayout } from '@/components/ui/primaryLayout'
 import { User, Mail, ShieldAlert, Award } from 'lucide-react'
 

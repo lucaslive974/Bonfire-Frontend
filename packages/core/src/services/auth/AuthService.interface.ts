@@ -1,10 +1,10 @@
-import { AuthSession, UserSession } from './types'
+import { AuthSession } from './types'
 
 /**
  * Interface rigorosa de contrato para o serviço de autenticação da aplicação (Facade/Adapter).
  * Qualquer provedor de autenticação (Next-Auth, Firebase, Auth0, etc.) deve implementar este contrato.
  */
-export interface IAuthService {
+export interface IAuthService<TSession = AuthSession> {
   /**
    * Realiza a autenticação do usuário.
    * @param provider Identificador do provedor (ex: 'keycloak')
@@ -21,10 +21,10 @@ export interface IAuthService {
   /**
    * Recupera a sessão atual de autenticação contendo o usuário e tokens.
    */
-  getSession(): Promise<AuthSession | null>
+  getSession(): Promise<TSession | null>
 
   /**
    * Método de conveniência para extrair apenas os dados do usuário autenticado.
    */
-  getUser(): Promise<UserSession | null>
+  getUser(): Promise<any | null>
 }

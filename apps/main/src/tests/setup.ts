@@ -14,6 +14,7 @@ vi.mock('next-auth/react', () => ({
   getSession: vi.fn(),
 }))
 vi.mock('next-auth', () => ({
+  default: vi.fn(() => vi.fn()),
   getServerSession: vi.fn(),
 }))
 

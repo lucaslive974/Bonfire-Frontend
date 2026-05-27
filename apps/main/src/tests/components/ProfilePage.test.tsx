@@ -9,15 +9,20 @@
 
 import { render, screen } from '@testing-library/react'
 import ProfilePage from '@/app/profile/page'
-import { authServerService } from '@/services/auth/NextAuthServerService'
+import { authServerService } from '@bonfire/core'
 import { vi, describe, it, expect } from 'vitest'
 
 // Mock do driver de autenticação do servidor
-vi.mock('@/services/auth/NextAuthServerService', () => ({
-  authServerService: {
-    getSession: vi.fn()
+vi.mock('@bonfire/core', async (importOriginal) => {
+  const original = await importOriginal<typeof import('@bonfire/core')>()
+  return {
+    ...original,
+    authServerService: {
+      getSession: vi.fn(),
+      getUser: vi.fn(),
+    }
   }
-}))
+})
 
 // Mock do PrimaryLayout para simplificar a montagem da árvore do DOM
 vi.mock('@/components/ui/primaryLayout', () => ({

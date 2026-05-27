@@ -1,6 +1,3 @@
-import { authOptions } from '@/services/authOptions'
-import NextAuth from 'next-auth'
+import { nextAuthHandler } from '@bonfire/core'
 
-const handler = NextAuth(authOptions)
-
-export { handler as GET, handler as POST }
+export { nextAuthHandler as GET, nextAuthHandler as POST }

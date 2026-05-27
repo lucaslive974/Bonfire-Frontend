@@ -9,7 +9,7 @@ import {
 } from '@/services/localStorage'
 
 import { useEffect, useState } from 'react'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@bonfire/core'
 
 export function useNotifications() {
   const [notifications, setNotifications] = useState<NotificationT[]>([])

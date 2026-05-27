@@ -1,6 +1,5 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
-import { authClientService } from '../auth/NextAuthClientService'
-import { IHttpClient, HttpRequestConfig, HttpResponse, HttpError } from '@bonfire/core'
+import { IHttpClient, HttpRequestConfig, HttpResponse, HttpError, authClientService } from '@bonfire/core'
 import { notify } from '@/lib/utils'
 
 export class AxiosHttpClient implements IHttpClient {

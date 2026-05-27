@@ -14,8 +14,7 @@ vi.mock('@/services/env', () => ({
   }
 }))
 
-import { NextAuthClientService } from '@/services/auth/NextAuthClientService'
-import { NextAuthServerService } from '@/services/auth/NextAuthServerService'
+import { NextAuthClientService, NextAuthServerService } from '@bonfire/core'
 import { getSession } from 'next-auth/react'
 import { getServerSession } from 'next-auth'
 
@@ -28,6 +27,7 @@ vi.mock('next-auth/react', () => ({
 
 // Mock next-auth server side
 vi.mock('next-auth', () => ({
+  default: vi.fn(() => vi.fn()),
   getServerSession: vi.fn()
 }))
 
