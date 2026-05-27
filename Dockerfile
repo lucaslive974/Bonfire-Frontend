@@ -11,6 +11,7 @@ COPY package.json package-lock.json* ./
 COPY apps/main/package.json ./apps/main/
 COPY apps/admin/package.json ./apps/admin/
 COPY packages/ui/package.json ./packages/ui/
+COPY packages/core/package.json ./packages/core/
 
 RUN npm ci
 
@@ -25,7 +26,13 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN npx turbo run build --filter=bonfire
+# APP_NAME is the package name (e.g. bonfire, admin), APP_DIR is the folder (e.g. main, admin)
+ARG APP_NAME=bonfire
+ARG APP_DIR=main
+RUN npx turbo run build --filter=${APP_NAME}
+
+# Guarantee public folder exists so COPY won't fail
+RUN mkdir -p apps/${APP_DIR}/public
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -38,11 +45,14 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+ARG APP_DIR=main
+ENV APP_DIR_ENV=${APP_DIR}
+
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/apps/main/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/apps/main/.next/static ./apps/main/.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/apps/main/public ./apps/main/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/${APP_DIR_ENV}/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/${APP_DIR_ENV}/.next/static ./apps/${APP_DIR_ENV}/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/${APP_DIR_ENV}/public ./apps/${APP_DIR_ENV}/public
 
 USER nextjs
 
@@ -53,4 +63,6 @@ ENV PORT=3000
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
-CMD ["node", "apps/main/server.js"]
+
+# Running dynamically using shell form so ENV variable is expanded
+CMD node apps/${APP_DIR_ENV}/server.js
