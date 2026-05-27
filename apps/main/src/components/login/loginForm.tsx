@@ -58,9 +58,9 @@ export default function LoginForm() {
         {/* Dashboard Access & Sign Out Actions */}
         <div className="w-full flex flex-col gap-2">
           <Link href="/" className="w-full">
-            <Button className="w-full flex items-center justify-center gap-2 font-bold py-6 text-sm bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-xl hover:bg-zinc-850 dark:hover:bg-zinc-50 transition-all duration-200">
-              <LayoutDashboard size={16} />
-              <span>Acessar Painel Principal</span>
+            <Button className="w-full flex items-center justify-center gap-2 font-bold py-6 text-sm bg-zinc-900 dark:bg-zinc-100 rounded-xl hover:bg-zinc-850 dark:hover:bg-zinc-50 transition-all duration-200">
+              <LayoutDashboard size={16} className='text-white dark:text-zinc-900 ' />
+              <span className='text-white dark:text-zinc-900'>Acessar Painel Principal</span>
             </Button>
           </Link>
 
