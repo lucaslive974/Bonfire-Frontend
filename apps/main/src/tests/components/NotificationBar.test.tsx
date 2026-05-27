@@ -9,9 +9,15 @@
  */
 
 import { render, screen, fireEvent } from '@testing-library/react'
-import { NotificationBar } from '@/components/ui/notificationBar'
+import { NotificationBar } from '@bonfire/ui'
 import { vi, describe, it, expect, beforeEach } from 'vitest'
 import { useNotifications } from '@/hooks/useNotifications'
+
+function TestNotificationBar() {
+  const props = useNotifications()
+  return <NotificationBar {...props} />
+}
+
 
 // Mock do next-auth/react
 vi.mock('next-auth/react', () => ({
@@ -64,7 +70,7 @@ describe('NotificationBar (Integration Tests)', () => {
   })
 
   it('deve renderizar o ícone do sino com a contagem correta de notificações não lidas', () => {
-    render(<NotificationBar />)
+    render(<TestNotificationBar />)
 
     // Garante que o botão do sino com rótulo semântico está na tela
     const bellButton = screen.getByRole('button', { name: /notificações/i })
@@ -76,7 +82,7 @@ describe('NotificationBar (Integration Tests)', () => {
   })
 
   it('deve abrir o popover e exibir a lista filtrável de notificações quando clicado', () => {
-    render(<NotificationBar />)
+    render(<TestNotificationBar />)
 
     // Clica no sino para abrir o popover
     const bellButton = screen.getByRole('button', { name: /notificações/i })
@@ -96,7 +102,7 @@ describe('NotificationBar (Integration Tests)', () => {
   })
 
   it('deve alternar a filtragem de abas entre Todas e Não Lidas', () => {
-    render(<NotificationBar />)
+    render(<TestNotificationBar />)
 
     // Abre o popover
     const bellButton = screen.getByRole('button', { name: /notificações/i })
@@ -116,7 +122,7 @@ describe('NotificationBar (Integration Tests)', () => {
   })
 
   it('deve chamar a ação de marcar como lida ao clicar em uma notificação pendente', () => {
-    render(<NotificationBar />)
+    render(<TestNotificationBar />)
 
     // Abre o popover
     const bellButton = screen.getByRole('button', { name: /notificações/i })

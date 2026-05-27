@@ -2,10 +2,10 @@
 
 import { AlignJustify, Flame } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
+import { useNotifications } from '@/hooks/useNotifications'
 import Link from 'next/link'
 
-import { NotificationBar } from './notificationBar'
-import { ThemeSelector } from '@bonfire/ui'
+import { NotificationBar, ThemeSelector } from '@bonfire/ui'
 
 type HeaderProps = {
   toggleSideBar: () => void
@@ -13,6 +13,7 @@ type HeaderProps = {
 
 export function Header({ toggleSideBar }: HeaderProps) {
   const { session } = useAuth()
+  const notificationsProps = useNotifications()
 
   return (
     <>
@@ -59,7 +60,7 @@ export function Header({ toggleSideBar }: HeaderProps) {
           )}
 
             <ThemeSelector/>
-            <NotificationBar />
+            <NotificationBar {...notificationsProps} />
         </div>
 
       </header>

@@ -28,3 +28,7 @@ export * from './components/ui/reusable-dialog'
 export * from './components/ui/tableWrappers'
 export * from './components/ui/sidebar'
 export * from './components/ui/page-header'
+export * from './components/ui/file-upload'
+export * from './components/ui/notification-bar'
+export * from './components/ui/session-wrapper'
+

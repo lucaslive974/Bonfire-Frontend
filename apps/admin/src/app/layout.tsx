@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { ThemeProvider } from 'next-themes'
-import { SessionWrapper } from '../components/sessionWrapper'
+import { SessionWrapper } from '@bonfire/ui'
 import './globals.css'
 
 export const metadata = {

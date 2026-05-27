@@ -1,23 +1,38 @@
 'use client'
 
 import { useState } from 'react'
-import { Popover, PopoverContent, PopoverTrigger, ScrollArea } from '@bonfire/ui'
-import { useNotifications } from '@/hooks/useNotifications'
-import { NotificationT } from '@/services/localStorage'
+import { Popover, PopoverContent, PopoverTrigger } from './popover'
+import { ScrollArea } from './scroll-area'
 import { Bell, CheckCheck, Trash2, User, Clock, Inbox } from 'lucide-react'
 
-export function NotificationBar() {
-  const { 
-    notifications, 
-    qtdNotifications, 
-    handleClear, 
-    handleMarkAsRead, 
-    handleMarkAllAsRead 
-  } = useNotifications()
+export interface NotificationT {
+  id: string
+  date: string
+  read: boolean
+  user?: string
+  document?: string
+  message?: string
+  counter?: string
+}
 
+export interface NotificationBarProps {
+  notifications: NotificationT[]
+  qtdNotifications: number
+  handleClear: () => void
+  handleMarkAsRead: (id: string) => void
+  handleMarkAllAsRead: () => void
+}
+
+export function NotificationBar({
+  notifications,
+  qtdNotifications,
+  handleClear,
+  handleMarkAsRead,
+  handleMarkAllAsRead,
+}: NotificationBarProps) {
   const [activeTab, setActiveTab] = useState<'all' | 'unread'>('all')
 
-  const filteredNotifications = notifications.filter(n => {
+  const filteredNotifications = notifications.filter((n) => {
     if (activeTab === 'unread') return !n.read
     return true
   })
@@ -25,8 +40,8 @@ export function NotificationBar() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button 
-          aria-label="Notificações" 
+        <button
+          aria-label="Notificações"
           className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors focus:outline-none"
         >
           <Bell size={18} className="text-zinc-600 dark:text-zinc-300" />
@@ -110,7 +125,7 @@ export function NotificationBar() {
         <ScrollArea className="h-80">
           {filteredNotifications.length > 0 ? (
             <div className="divide-y divide-zinc-100 dark:divide-zinc-900">
-              {filteredNotifications.map((notification: NotificationT) => (
+              {filteredNotifications.map((notification) => (
                 <div
                   key={notification.id}
                   onClick={() => !notification.read && handleMarkAsRead(notification.id)}
@@ -155,7 +170,9 @@ export function NotificationBar() {
             <div className="flex flex-col h-60 items-center justify-center text-zinc-400 dark:text-zinc-500 gap-2">
               <Inbox size={24} className="stroke-1" />
               <span className="text-xs">
-                {activeTab === 'unread' ? 'Nenhuma notificação não lida' : 'Sem notificações registradas'}
+                {activeTab === 'unread'
+                  ? 'Nenhuma notificação não lida'
+                  : 'Sem notificações registradas'}
               </span>
             </div>
           )}
