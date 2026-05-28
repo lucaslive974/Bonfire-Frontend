@@ -49,13 +49,15 @@ export function DialogEditVehicle({
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button 
-                type="submit" 
-                onClick={form.handleSubmit(handleUpdate)}
-                className="rounded-xl font-bold py-5 text-xs bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-850 dark:hover:bg-zinc-50"
-              >
-                Salvar Alterações
-              </Button>
+              <DialogClose asChild>
+                <Button 
+                  type="submit" 
+                  onClick={form.handleSubmit(handleUpdate)}
+                  className="rounded-xl font-bold py-5 text-xs bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-850 dark:hover:bg-zinc-50"
+                >
+                  Salvar Alterações
+                </Button>
+              </DialogClose>
             </>
           }
         >
@@ -165,7 +167,8 @@ export function DialogDeleteVehicle({
 
 export function DialogIncludeVehicle({
   vehicle: { IDN_PLAC_VEIC, NUM_VEIC, VEIC_ATIV_EMPR },
-}: DialogContentVehicleProp) {
+  onSuccess,
+}: DialogContentVehicleProp & { onSuccess?: () => void }) {
   const { handleInsert } = useVehicles()
   const form = useForm<VehiclesData>({
     resolver: zodResolver(VehicleSchema),
@@ -176,9 +179,18 @@ export function DialogIncludeVehicle({
     },
   })
 
+  const onSubmit = async (data: VehiclesData) => {
+    try {
+      await handleInsert(data)
+      onSuccess?.()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleInsert)}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <ReusableDialog
           icon={<Plus className="h-5 w-5" />}
           iconClassName="bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-2xl border border-emerald-100 dark:border-emerald-900/50"
@@ -193,7 +205,7 @@ export function DialogIncludeVehicle({
               </DialogClose>
               <Button 
                 type="submit" 
-                onClick={form.handleSubmit(handleInsert)}
+                onClick={form.handleSubmit(onSubmit)}
                 className="rounded-xl font-bold py-5 text-xs bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-850 dark:hover:bg-zinc-50"
               >
                 Criar Veículo

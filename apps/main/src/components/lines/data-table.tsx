@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { ColumnDef } from '@tanstack/react-table'
 import { Button, Input, Dialog, DialogTrigger, ReusableDataTable } from '@bonfire/ui'
 import { DialogInsertLine } from '@/components/lines/dialogLines'
@@ -14,6 +15,8 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const [open, setOpen] = useState(false)
+
   return (
     <ReusableDataTable
       columns={columns}
@@ -37,7 +40,7 @@ export function DataTable<TData, TValue>({
             />
           </div>
 
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button size="sm" className="flex items-center gap-1.5 font-semibold ml-auto">
                 <Plus size={15} />
@@ -51,6 +54,7 @@ export function DataTable<TData, TValue>({
                 ID_OPERADORA: 0,
                 LINH_ATIV_EMPR: false,
               }}
+              onSuccess={() => setOpen(false)}
             />
           </Dialog>
         </>
