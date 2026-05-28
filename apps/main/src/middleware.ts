@@ -1,10 +1,6 @@
-import { withAuth } from "next-auth/middleware"
+import { authMiddleware } from "@bonfire/core/src/services/auth/middleware"
 
-export default withAuth({
-  callbacks: {
-    authorized: ({ token }) => !!token,
-  },
-})
+export default authMiddleware
 
 export const config = {
   matcher: [

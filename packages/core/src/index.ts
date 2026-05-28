@@ -7,3 +7,7 @@ export * from './services/auth/NextAuthOptions'
 export * from './services/auth/NextAuthDrivers'
 export * from './services/auth/AuthProvider'
 export * from './services/auth/useAuth'
+export * from './services/auth/tokenDecoder'
+export * from './services/auth/tokenEncoder'
+export * from './services/auth/middleware'
+

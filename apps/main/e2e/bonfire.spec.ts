@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { encode } from 'next-auth/jwt'
+import { tokenEncoder } from '@bonfire/core'
 
 // --- MOCK DATA DICTIONARY ---
 const mockConsortiums = {
@@ -62,7 +62,7 @@ const NEXTAUTH_TEST_SECRET = 'testsecret123456789012345678901234567895'
 
 // Helper to inject a valid NextAuth session token cookie into the browser context
 async function injectAuthCookie(context: any) {
-  const sessionToken = await encode({
+  const sessionToken = await tokenEncoder.encode({
     token: {
       name: 'Usuário Teste',
       email: 'teste@bonfire.gov.br',
