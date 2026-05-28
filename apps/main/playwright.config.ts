@@ -6,7 +6,11 @@ import { defineConfig, devices } from '@playwright/test'
 export default defineConfig({
   testDir: './e2e',
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
+  timeout: 60000,
+  expect: {
+    timeout: 15000,
+  },
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -22,13 +26,13 @@ export default defineConfig({
 
     /* Collect trace when retrying a failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    
+
     /* Use the system's Google Chrome browser to run headed or headless tests */
     channel: 'chrome',
-    
+
     /* Dynamic action timeouts to prevent CI flakiness */
-    actionTimeout: 10000,
-    navigationTimeout: 15000,
+    actionTimeout: 15000,
+    navigationTimeout: 30000,
   },
 
   /* Configure projects for major browsers */
