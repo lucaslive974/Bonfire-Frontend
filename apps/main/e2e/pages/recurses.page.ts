@@ -7,6 +7,8 @@ export class RecursesPage {
   readonly firstInstanceBadge: Locator
   readonly secondInstanceHeader: Locator
   readonly secondInstanceBadge: Locator
+  readonly mockRow: Locator
+  readonly ataFilterInput: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -14,6 +16,8 @@ export class RecursesPage {
     this.firstInstanceBadge = page.locator('text=JARI Ativa')
     this.secondInstanceHeader = page.locator('h1', { hasText: 'Recursos em 2ª Instância' })
     this.secondInstanceBadge = page.locator('text=SETRA / SUMOB Ativo')
+    this.mockRow = page.locator('text=AI-99992')
+    this.ataFilterInput = page.locator('input[placeholder="Filtrar por N° Ata"]')
   }
 
   async gotoFirstInstance() {
@@ -32,5 +36,22 @@ export class RecursesPage {
   async assertSecondInstanceVisible() {
     await expect(this.secondInstanceHeader).toBeVisible()
     await expect(this.secondInstanceBadge).toBeVisible()
+  }
+
+  async assertTableLoaded() {
+    await expect(this.page.locator('tbody .animate-pulse')).toHaveCount(0)
+  }
+
+  async assertMockRowVisible() {
+    await expect(this.mockRow).toBeVisible()
+  }
+
+  async assertMockRowHidden() {
+    await expect(this.mockRow).toBeHidden()
+  }
+
+  async fillAtaFilter(ata: string) {
+    await expect(this.ataFilterInput).toBeVisible()
+    await this.ataFilterInput.fill(ata)
   }
 }

@@ -38,6 +38,10 @@ export class ConsortiumPage {
     await expect(this.mockRow).toBeVisible()
   }
 
+  async assertMockRowHidden() {
+    await expect(this.mockRow).toBeHidden()
+  }
+
   async filterByName(name: string) {
     await expect(this.filterInput).toBeVisible()
     await this.filterInput.fill(name)

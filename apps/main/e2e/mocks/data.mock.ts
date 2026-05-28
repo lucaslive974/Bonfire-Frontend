@@ -23,13 +23,43 @@ export let mockLines = {
 
 export let mockInfractions = {
   autos: [
-    { NUM_AUTO: 'AI-99992', DATA: '2026-05-28', PLACA: 'ABC-1234', GRAVIDADE: 'Média' }
+    {
+      NUM_NOTF: 'NOT-12345',
+      TIP_PENL: 'Multa',
+      NUM_AI: 'AI-99992',
+      NOM_CONC: 'Expresso Municipal',
+      COD_LINH: '5502C',
+      NOM_LINH: 'Linha Centro',
+      NUM_VEIC: 10022,
+      IDN_PLAC_VEIC: 'ABC-1234',
+      DAT_OCOR_INFR: new Date('2026-05-28T10:00:00Z').getTime(),
+      DAT_OCOR_INFR_STR: '2026-05-28',
+      DES_LOCA: 'Av. Principal, 100',
+      COD_IRRG_FISC: 1,
+      ARTIGO: 'Art. 181',
+      DESC_OBSE: 'Sem observações',
+      NUM_MATR_FISC: 999,
+      QTE_PONT: 4,
+      DAT_EMIS_NOTF: new Date('2026-05-28T12:00:00Z').getTime(),
+      DAT_EMIS_NOTF_STR: '2026-05-28',
+      DAT_LIMIT_RECU: new Date('2026-06-28T23:59:59Z').toISOString(),
+      VAL_INFR: 195.23,
+      DAT_CANC: new Date('2026-07-28T23:59:59Z').toISOString()
+    }
   ]
 }
 
 export let mockRecurses = {
   recurses: [
-    { ID: 'R001', NUM_AUTO: 'AI-99992', PLACA: 'ABC-1234', STATUS: 'Julgado' }
+    {
+      COD_LINH: '5502C',
+      DAT_PUBL: '2026-05-28',
+      DAT_VENC: '2026-06-28',
+      IDN_PLAC_VEIC: 'ABC-1234',
+      NUM_AI: 'AI-99992',
+      NUM_ATA: 105,
+      NUM_VEIC: 10022
+    }
   ]
 }
 
@@ -54,12 +84,42 @@ export function resetMockData() {
   }
   mockInfractions = {
     autos: [
-      { NUM_AUTO: 'AI-99992', DATA: '2026-05-28', PLACA: 'ABC-1234', GRAVIDADE: 'Média' }
+      {
+        NUM_NOTF: 'NOT-12345',
+        TIP_PENL: 'Multa',
+        NUM_AI: 'AI-99992',
+        NOM_CONC: 'Expresso Municipal',
+        COD_LINH: '5502C',
+        NOM_LINH: 'Linha Centro',
+        NUM_VEIC: 10022,
+        IDN_PLAC_VEIC: 'ABC-1234',
+        DAT_OCOR_INFR: new Date('2026-05-28T10:00:00Z').getTime(),
+        DAT_OCOR_INFR_STR: '2026-05-28',
+        DES_LOCA: 'Av. Principal, 100',
+        COD_IRRG_FISC: 1,
+        ARTIGO: 'Art. 181',
+        DESC_OBSE: 'Sem observações',
+        NUM_MATR_FISC: 999,
+        QTE_PONT: 4,
+        DAT_EMIS_NOTF: new Date('2026-05-28T12:00:00Z').getTime(),
+        DAT_EMIS_NOTF_STR: '2026-05-28',
+        DAT_LIMIT_RECU: new Date('2026-06-28T23:59:59Z').toISOString(),
+        VAL_INFR: 195.23,
+        DAT_CANC: new Date('2026-07-28T23:59:59Z').toISOString()
+      }
     ]
   }
   mockRecurses = {
     recurses: [
-      { ID: 'R001', NUM_AUTO: 'AI-99992', PLACA: 'ABC-1234', STATUS: 'Julgado' }
+      {
+        COD_LINH: '5502C',
+        DAT_PUBL: '2026-05-28',
+        DAT_VENC: '2026-06-28',
+        IDN_PLAC_VEIC: 'ABC-1234',
+        NUM_AI: 'AI-99992',
+        NUM_ATA: 105,
+        NUM_VEIC: 10022
+      }
     ]
   }
 }

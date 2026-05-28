@@ -7,6 +7,7 @@ export class InfractionsPage {
   readonly badgeText: Locator
   readonly dateFilterInput: Locator
   readonly searchInput: Locator
+  readonly mockRow: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -14,6 +15,7 @@ export class InfractionsPage {
     this.badgeText = page.locator('text=Sincronizado')
     this.dateFilterInput = page.locator('input[placeholder="Filtrar por Data"]')
     this.searchInput = page.locator('input[placeholder="N° Auto de Infração"]')
+    this.mockRow = page.locator('text=AI-99992')
   }
 
   async goto() {
@@ -32,5 +34,17 @@ export class InfractionsPage {
 
   async fillSearchInput(text: string) {
     await this.searchInput.fill(text)
+  }
+
+  async assertTableLoaded() {
+    await expect(this.page.locator('tbody .animate-pulse')).toHaveCount(0)
+  }
+
+  async assertMockRowVisible() {
+    await expect(this.mockRow).toBeVisible()
+  }
+
+  async assertMockRowHidden() {
+    await expect(this.mockRow).toBeHidden()
   }
 }
