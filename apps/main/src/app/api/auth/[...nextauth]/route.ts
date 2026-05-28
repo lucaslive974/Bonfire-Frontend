@@ -1,3 +1,4 @@
-import { nextAuthHandler } from '@bonfire/core'
+import { handlers } from '@bonfire/core'
 
-export { nextAuthHandler as GET, nextAuthHandler as POST }
+export const { GET, POST } = handlers
+

@@ -1,4 +1,4 @@
-import { authServerService } from '@bonfire/core'
+import { AuthServerService } from '@bonfire/core'
 import { PrimaryLayout } from '@/components/ui/primaryLayout'
 import { User, Mail, ShieldAlert, Award } from 'lucide-react'
 
@@ -8,7 +8,7 @@ export const metadata = {
 
 export default async function ProfilePage() {
   // Get active session strictly on the Server-side using our abstract authServerService facade
-  const session = await authServerService.getSession()
+  const session = await AuthServerService.getSession()
 
   return (
     <PrimaryLayout>

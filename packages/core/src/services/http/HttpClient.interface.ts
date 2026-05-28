@@ -9,6 +9,12 @@ export interface HttpResponse<T> {
   status: number;
 }
 
+export interface HttpClientConfig {
+  baseURL?: string
+  headers?: Record<string, string>
+  onUnauthorized?: () => void | Promise<void>
+}
+
 export interface IHttpClient {
   get<T>(url: string, config?: HttpRequestConfig): Promise<HttpResponse<T>>;
   post<T>(url: string, data?: any, config?: HttpRequestConfig): Promise<HttpResponse<T>>;

@@ -1,17 +1,11 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
-import { IHttpClient, HttpRequestConfig, HttpResponse, HttpError } from './HttpClient.interface'
-import { authClientService } from '../auth/NextAuthDrivers'
-
-export interface AxiosHttpClientConfig {
-  baseURL?: string
-  headers?: Record<string, string>
-  onUnauthorized?: () => void | Promise<void>
-}
+import { IHttpClient, HttpRequestConfig, HttpClientConfig, HttpResponse, HttpError } from './HttpClient.interface'
+import { AuthClientService } from '../auth/Auth'
 
 export class AxiosHttpClient implements IHttpClient {
   private instance: AxiosInstance
 
-  constructor(config?: AxiosHttpClientConfig) {
+  constructor(config?: HttpClientConfig) {
     this.instance = axios.create({
       baseURL: config?.baseURL,
       headers: {
@@ -22,7 +16,7 @@ export class AxiosHttpClient implements IHttpClient {
 
     // Request interceptor: add next-auth session access token to headers
     this.instance.interceptors.request.use(async (axiosConfig: InternalAxiosRequestConfig) => {
-      const session = await authClientService.getSession()
+      const session = await AuthClientService.getSession()
       if (session?.accessToken) {
         axiosConfig.headers.Authorization = `Bearer ${session.accessToken}`
       }
@@ -39,9 +33,9 @@ export class AxiosHttpClient implements IHttpClient {
             if (config?.onUnauthorized) {
               await config.onUnauthorized()
             }
-            
+
             // Clean local session (cookies/tokens) and redirect graciosamente
-            await authClientService.logout({ redirect: true, callbackUrl: '/login?expired=true' })
+            await AuthClientService.logout({ redirect: true, callbackUrl: '/login?expired=true' })
           }
         }
         return Promise.reject(error)

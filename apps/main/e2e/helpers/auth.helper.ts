@@ -1,5 +1,5 @@
 // e2e/helpers/auth.helper.ts
-import { tokenEncoder } from '@bonfire/core'
+import { NextAuthTokenEncoder } from '@bonfire/core'
 
 export function generateFakeAccessToken(payloadObj: object): string {
   const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url')
@@ -24,7 +24,7 @@ export const mockSession = {
 export const NEXTAUTH_TEST_SECRET = 'testsecret123456789012345678901234567895'
 
 export async function injectAuthCookie(context: any) {
-  const sessionToken = await tokenEncoder.encode({
+  const sessionToken = await NextAuthTokenEncoder.encode({
     token: {
       name: 'Usuário Teste',
       email: 'teste@bonfire.gov.br',
@@ -32,6 +32,7 @@ export async function injectAuthCookie(context: any) {
     },
     secret: NEXTAUTH_TEST_SECRET,
     maxAge: 30 * 24 * 60 * 60, // 30 days
+    salt: 'nextauth-salt-session'
   })
 
   await context.addCookies([

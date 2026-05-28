@@ -50,8 +50,8 @@ export function DialogEditVehicle({
                 </Button>
               </DialogClose>
               <DialogClose asChild>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   onClick={form.handleSubmit(handleUpdate)}
                   className="rounded-xl font-bold py-5 text-xs bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-850 dark:hover:bg-zinc-50"
                 >
@@ -94,13 +94,13 @@ export function DialogEditVehicle({
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="VEIC_ATIV_EMPR"
               render={({ field }) => (
                 <FormItem>
-                  <div 
+                  <div
                     onClick={() => field.onChange(!field.value)}
                     className="flex items-center justify-between p-3.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 hover:bg-zinc-50 dark:hover:bg-zinc-900/40 cursor-pointer transition-colors select-none"
                   >
@@ -203,8 +203,8 @@ export function DialogIncludeVehicle({
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 onClick={form.handleSubmit(onSubmit)}
                 className="rounded-xl font-bold py-5 text-xs bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-850 dark:hover:bg-zinc-50"
               >
@@ -246,13 +246,13 @@ export function DialogIncludeVehicle({
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="VEIC_ATIV_EMPR"
               render={({ field }) => (
                 <FormItem>
-                  <div 
+                  <div
                     onClick={() => field.onChange(!field.value)}
                     className="flex items-center justify-between p-3.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 hover:bg-zinc-50 dark:hover:bg-zinc-900/40 cursor-pointer transition-colors select-none"
                   >

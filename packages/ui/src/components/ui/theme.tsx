@@ -1,8 +1,18 @@
 'use client'
 
-import { useTheme } from 'next-themes'
+import { useTheme as nextUseTheme, ThemeProvider } from 'next-themes'
 import { Moon, Sun, Monitor } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
+
+export function ThemeWrapper({ children }: { children: ReactNode }) {
+  return (
+    <ThemeProvider attribute="class">{children}</ThemeProvider>
+  )
+}
+
+export function useTheme() {
+  return nextUseTheme()
+}
 
 export function ThemeSelector() {
   const { theme, setTheme } = useTheme()

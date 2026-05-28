@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import { ThemeProvider } from 'next-themes'
-import { SessionWrapper } from '@bonfire/ui'
+import { ThemeWrapper } from '@bonfire/ui'
+import { AuthProvider } from '@bonfire/core'
 import './globals.css'
 
 export const metadata = {
@@ -18,11 +18,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body className="h-screen w-screen">
-        <ThemeProvider attribute="class">
-          <SessionWrapper>
+        <ThemeWrapper>
+          <AuthProvider>
             {children}
-          </SessionWrapper>
-        </ThemeProvider>
+          </AuthProvider>
+        </ThemeWrapper>
       </body>
     </html>
   )

@@ -1,7 +1,3 @@
-import { authMiddleware } from "@bonfire/core/src/services/auth/middleware"
-
-export default authMiddleware
-
 export const config = {
   matcher: [
     "/registers/:path*",
@@ -12,3 +8,5 @@ export const config = {
     "/profile"
   ],
 }
+
+export { auth as proxy } from '@bonfire/core'

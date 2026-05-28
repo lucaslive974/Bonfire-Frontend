@@ -1,7 +1,7 @@
-import { SessionWrapper, Toaster } from '@bonfire/ui'
 import type { Metadata } from 'next'
-import { ThemeProvider } from 'next-themes'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import { ThemeWrapper, Toaster } from '@bonfire/ui'
+import { AuthProvider } from '@bonfire/core'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -19,10 +19,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body className="h-screen w-screen">
-        <ThemeProvider attribute="class">
-          <SessionWrapper>{children}</SessionWrapper>
+        <ThemeWrapper>
+          <AuthProvider>{children}</AuthProvider>
           <Toaster />
-        </ThemeProvider>
+        </ThemeWrapper>
       </body>
     </html>
   )
