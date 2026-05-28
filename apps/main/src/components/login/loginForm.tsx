@@ -1,21 +1,21 @@
 'use client'
 
 import { useLoginViewModel } from '@/hooks/useLoginViewModel'
-import { Button } from '@bonfire/ui'
-import { LogIn, LogOut, LayoutDashboard, User, Lock, Eye, EyeOff, Loader2 } from 'lucide-react'
+import {
+  Button,
+  IconInput,
+  FormSubmitButton,
+  UserSessionCard,
+  SignOutButton,
+  FormError
+} from '@bonfire/ui'
+import { LogIn, LayoutDashboard, User, Lock, Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 
 export function SignOutBtn() {
   const { logout } = useLoginViewModel()
   return (
-    <Button
-      variant="outline"
-      onClick={() => logout({ redirect: false })}
-      className="w-full flex items-center justify-center gap-2 font-bold py-5 text-xs text-red-500 border-red-200 hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 dark:border-red-900/50 rounded-xl transition-all duration-200"
-    >
-      <LogOut size={14} />
-      <span>Sair da Conta</span>
-    </Button>
+    <SignOutButton onClick={() => logout({ redirect: false })} />
   )
 }
 
@@ -34,33 +34,21 @@ export default function LoginForm() {
   } = useLoginViewModel()
 
   if (session) {
-    const name = session.user?.name || ''
-    const initial = name ? name.charAt(0).toUpperCase() : 'U'
-
     return (
       <div className="flex flex-col items-center gap-6 w-full animate-in fade-in duration-300">
-
-        {/* User Card */}
-        <div className="w-full p-4 bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/80 rounded-2xl flex items-center gap-4 animate-in slide-in-from-bottom-2 duration-300">
-          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 text-white flex items-center justify-center font-bold text-base shadow-sm shrink-0">
-            {initial}
-          </div>
-          <div className="flex-1 text-left min-w-0">
-            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">
-              {session.user?.name || 'Usuário Autenticado'}
-            </h3>
-            <p className="text-xs text-zinc-500 truncate mt-0.5">
-              {session.user?.email || 'Sem e-mail cadastrado'}
-            </p>
-          </div>
-        </div>
+        
+        {/* Abstracted User Card */}
+        <UserSessionCard
+          name={session.user?.name || ''}
+          email={session.user?.email || ''}
+        />
 
         {/* Dashboard Access & Sign Out Actions */}
         <div className="w-full flex flex-col gap-2">
           <Link href="/" className="w-full">
-            <Button className="w-full flex items-center justify-center gap-2 font-bold py-6 text-sm bg-zinc-900 dark:bg-zinc-100 rounded-xl hover:bg-zinc-850 dark:hover:bg-zinc-50 transition-all duration-200">
-              <LayoutDashboard size={16} className='text-white dark:text-zinc-900 ' />
-              <span className='text-white dark:text-zinc-900'>Acessar Painel Principal</span>
+            <Button className="w-full flex items-center justify-center gap-2 font-bold py-6 text-sm bg-zinc-900 dark:bg-zinc-100 rounded-xl hover:bg-zinc-850 dark:hover:bg-zinc-50 transition-all duration-200 border-none">
+              <LayoutDashboard size={16} className="text-white dark:text-zinc-900" />
+              <span className="text-white dark:text-zinc-900">Acessar Painel Principal</span>
             </Button>
           </Link>
 
@@ -82,71 +70,51 @@ export default function LoginForm() {
         </p>
       </div>
 
-      {errorMessage && (
-        <div className="p-3 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400 text-xs font-semibold rounded-xl text-center animate-in shake duration-200">
-          {errorMessage}
-        </div>
-      )}
+      {/* Abstracted Form Error Banner */}
+      {errorMessage && <FormError message={errorMessage} />}
 
-      {/* Username Field */}
-      <div className="space-y-1.5 text-left">
-        <label className="text-xs font-semibold text-zinc-650 dark:text-zinc-400 ml-1">
-          Usuário / E-mail
-        </label>
-        <div className="relative">
-          <User className="absolute left-3 top-3 h-4 w-4 text-zinc-400 pointer-events-none" />
-          <input
-            type="text"
-            required
-            placeholder="Seu usuário ou e-mail"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            disabled={isLoading}
-            className="w-full pl-10 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 dark:focus:ring-orange-500/20 dark:focus:border-orange-500 disabled:opacity-50 text-zinc-800 dark:text-zinc-100"
-          />
-        </div>
-      </div>
+      {/* Abstracted Username Input Field */}
+      <IconInput
+        type="text"
+        required
+        label="Usuário / E-mail"
+        placeholder="Seu usuário ou e-mail"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        disabled={isLoading}
+        icon={User}
+      />
 
-      {/* Password Field */}
-      <div className="space-y-1.5 text-left">
-        <label className="text-xs font-semibold text-zinc-650 dark:text-zinc-400 ml-1">
-          Senha
-        </label>
-        <div className="relative">
-          <Lock className="absolute left-3 top-3 h-4 w-4 text-zinc-400 pointer-events-none" />
-          <input
-            type={showPassword ? 'text' : 'password'}
-            required
-            placeholder="Sua senha de acesso"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoading}
-            className="w-full pl-10 pr-10 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 dark:focus:ring-orange-500/20 dark:focus:border-orange-500 disabled:opacity-50 text-zinc-800 dark:text-zinc-100"
-          />
+      {/* Abstracted Password Input Field */}
+      <IconInput
+        type={showPassword ? 'text' : 'password'}
+        required
+        label="Senha"
+        placeholder="Sua senha de acesso"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        disabled={isLoading}
+        icon={Lock}
+        rightElement={
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             disabled={isLoading}
-            className="absolute right-3 top-3 text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors"
+            className="text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors h-4 flex items-center justify-center"
           >
             {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
           </button>
-        </div>
-      </div>
+        }
+      />
 
-      {/* Submit Button */}
-      <Button
-        type="submit"
-        disabled={isLoading}
-        className="w-full flex items-center justify-center gap-2 font-bold py-6 text-sm bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-650 hover:to-amber-650 text-white rounded-2xl shadow-md transition-all duration-200 mt-2 disabled:opacity-75"
+      {/* Abstracted Submit Action Button */}
+      <FormSubmitButton
+        isLoading={isLoading}
+        loadingText="Autenticando..."
+        icon={LogIn}
       >
-        {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <LogIn size={16} />
-        )}
-        <span>{isLoading ? 'Autenticando...' : 'Entrar no Sistema'}</span>
-      </Button>
+        Entrar no Sistema
+      </FormSubmitButton>
     </form>
   )
 }
