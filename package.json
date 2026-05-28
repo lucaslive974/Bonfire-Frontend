@@ -15,6 +15,7 @@
     "test:e2e:headed": "turbo run test:e2e:headed"
   },
   "devDependencies": {
-    "turbo": "^1.13.0"
-  }
+    "turbo": "^2.9.16"
+  },
+  "packageManager": "npm@11.6.2"
 }
