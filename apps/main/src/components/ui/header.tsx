@@ -3,6 +3,7 @@
 import { AlignJustify, Flame } from 'lucide-react'
 import { useAuth } from '@bonfire/core'
 import { useNotifications } from '@/hooks/useNotifications'
+import { BrandLogo } from '@bonfire/ui'
 import Link from 'next/link'
 
 import { NotificationBar, ThemeSelector } from '@bonfire/ui'
@@ -38,19 +39,20 @@ export function Header({ toggleSideBar }: HeaderProps) {
           >
             <AlignJustify size={18} />
           </button>
-          
-          <Link href="/" className="flex items-center gap-2 group transition-opacity hover:opacity-90">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-sm shadow-orange-500/20">
-              <Flame size={15} className="fill-current animate-pulse-subtle" />
-            </div>
-            <span className="font-bold tracking-tight text-zinc-900 dark:text-zinc-50 text-sm sm:text-base">
-              Bonfire
-            </span>
-          </Link>
+
+          <BrandLogo />
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 border-l border-zinc-200 dark:border-zinc-800 pl-3 hidden sm:inline-block">
+            Infrações e Multas
+          </span>
         </div>
 
         {/* RIGHT */}
         <div className="flex items-center gap-3">
+          <ThemeSelector />
+          {session?.user?.name && (
+            <div className="h-5 w-[1px] bg-zinc-200 dark:bg-zinc-800 hidden sm:block" />
+          )}
+
           {session?.user?.name && (
             <div className="hidden sm:flex flex-col items-end mr-1 leading-none gap-0.5">
               <span className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
@@ -62,12 +64,7 @@ export function Header({ toggleSideBar }: HeaderProps) {
             </div>
           )}
 
-          {session?.user?.name && (
-            <div className="h-5 w-[1px] bg-zinc-200 dark:bg-zinc-800 hidden sm:block" />
-          )}
-
-            <ThemeSelector/>
-            <NotificationBar {...notificationsProps} />
+          <NotificationBar {...notificationsProps} />
         </div>
 
       </header>
