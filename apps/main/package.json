@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "test": "NEXTAUTH_URL=http://localhost:3000 NEXT_PUBLIC_API_URL=http://localhost vitest",
-    "test:run": "NEXTAUTH_URL=http://localhost:3000 NEXT_PUBLIC_API_URL=http://localhost vitest run"
+    "test:run": "NEXTAUTH_URL=http://localhost:3000 NEXT_PUBLIC_API_URL=http://localhost vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "@bonfire/core": "*",
@@ -28,6 +31,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@rocketseat/eslint-config": "^2.2.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",

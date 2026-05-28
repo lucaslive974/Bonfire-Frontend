@@ -1,12 +1,18 @@
-export { default } from 'next-auth/middleware'
+import { withAuth } from "next-auth/middleware"
+
+export default withAuth({
+  callbacks: {
+    authorized: ({ token }) => !!token,
+  },
+})
 
 export const config = {
   matcher: [
-    '/infractions/:path*',
-    '/registers/:path*',
-    '/import/:path*',
-    '/recurses/:path*',
-    '/history/:path*',
-    '/profile/:path*',
+    "/registers/:path*",
+    "/infractions",
+    "/history",
+    "/import",
+    "/recurses/:path*",
+    "/profile"
   ],
 }
