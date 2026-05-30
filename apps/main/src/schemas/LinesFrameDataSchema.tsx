@@ -1,10 +1,12 @@
 import z from 'zod'
 
+import { bool_converter_helper } from '@/lib/utils'
+
 export const LinesFrameDataSchema = z.object({
   COD_LINH: z.string().min(1, { message: 'Insira o código da linha' }),
-  COMPARTILHADA: z.boolean(),
+  COMPARTILHADA: z.boolean().transform(bool_converter_helper),
   ID_OPERADORA: z.number(),
-  LINH_ATIV_EMPR: z.boolean(),
+  LINH_ATIV_EMPR: z.boolean().transform(bool_converter_helper),
 })
 
 export type LinesFrameData = z.infer<typeof LinesFrameDataSchema>
