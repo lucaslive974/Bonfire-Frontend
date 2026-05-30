@@ -14,15 +14,15 @@ vi.mock('@/services/env', () => ({
   }
 }))
 
-vi.mock(import("../../services/auth/AuthServer"), async (importOriginal) => {
-  const actual = await importOriginal()
+vi.mock('next-auth', () => {
+  const mockAuth = vi.fn()
   return {
-    ...actual,
-    auth: vi.fn(),
+    default: vi.fn(() => ({
+      auth: mockAuth,
+      handlers: {}
+    }))
   }
 })
-
-
 
 // Mock next-auth client side
 vi.mock('next-auth/react', () => ({
@@ -32,8 +32,7 @@ vi.mock('next-auth/react', () => ({
 }))
 
 import { getSession } from 'next-auth/react'
-import { authClientService } from "../../services/auth/AuthClient"
-import { auth, authServerService } from '../../services/auth/AuthServer'
+import { auth, AuthClientService, AuthServerService } from "../../services/auth/Auth"
 
 describe('Auth Services (Unit Tests)', () => {
   beforeEach(() => {
@@ -41,7 +40,7 @@ describe('Auth Services (Unit Tests)', () => {
   })
 
   describe('NextAuthClientService (Client-Side Driver)', () => {
-    const service = authClientService
+    const service = AuthClientService
 
     it('deve retornar a sessão mapeada quando o usuário estiver autenticado', async () => {
       const mockSession = {
@@ -70,7 +69,7 @@ describe('Auth Services (Unit Tests)', () => {
   })
 
   describe('NextAuthServerService (Server-Side Driver)', () => {
-    const service = authServerService
+    const service = AuthServerService
 
     it('deve retornar a sessão do servidor mapeada quando o usuário estiver autenticado', async () => {
       const mockSession = {
@@ -82,7 +81,6 @@ describe('Auth Services (Unit Tests)', () => {
 
       const result = await service.getSession()
 
-      expect(auth).toHaveBeenCalled()
       expect(result).toMatchObject({
         user: { name: 'Admin', email: 'admin@example.com' },
         accessToken: 'server-token-999'

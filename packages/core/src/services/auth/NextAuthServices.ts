@@ -180,7 +180,7 @@ const NextAuthClientService: IAuthService = {
 
   async getSession(): Promise<AuthSession | null> {
     try {
-      const session = getSession()
+      const session = await getSession()
       return session as AuthSession | null
     } catch (error) {
       console.error('[AuthClientService] Falha ao obter sessão do cliente:', error)

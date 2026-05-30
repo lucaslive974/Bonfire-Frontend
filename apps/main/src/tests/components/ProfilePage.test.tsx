@@ -9,7 +9,7 @@
 
 import { render, screen } from '@testing-library/react'
 import ProfilePage from '@/app/profile/page'
-import { authServerService } from '@bonfire/core'
+import { AuthServerService } from '@bonfire/core'
 import { vi, describe, it, expect } from 'vitest'
 
 // Mock do driver de autenticação do servidor
@@ -17,7 +17,7 @@ vi.mock('@bonfire/core', async (importOriginal) => {
   const original = await importOriginal<typeof import('@bonfire/core')>()
   return {
     ...original,
-    authServerService: {
+    AuthServerService: {
       getSession: vi.fn(),
       getUser: vi.fn(),
     }
@@ -37,7 +37,7 @@ describe('ProfilePage Server Component (Integration Tests)', () => {
     }
     
     // Configura o mock da sessão ativa
-    vi.mocked(authServerService.getSession).mockResolvedValue(mockSession)
+    vi.mocked(AuthServerService.getSession).mockResolvedValue(mockSession)
 
     // Renderiza a página (Server Component)
     render(await ProfilePage())
@@ -53,7 +53,7 @@ describe('ProfilePage Server Component (Integration Tests)', () => {
 
   it('deve exibir a mensagem de "Sem sessão ativa" e restringir acesso quando NÃO autenticado', async () => {
     // Configura o mock para simular ausência de sessão (usuário unauthenticated)
-    vi.mocked(authServerService.getSession).mockResolvedValue(null)
+    vi.mocked(AuthServerService.getSession).mockResolvedValue(null)
 
     render(await ProfilePage())
 
