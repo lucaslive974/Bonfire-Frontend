@@ -1,59 +1,59 @@
-# 🔥 Bonfire Monorepo — Infrações, Multas e Cadastros Municipais
+# 🔥 Bonfire Monorepo — Municipal Infractions, Fines, and Registries
 
-Bonfire é uma plataforma governamental moderna, de alta performance e visualmente deslumbrante, projetada para gerenciar consórcios, linhas de transporte público, veículos da frota ativa, infrações de trânsito e recursos administrativos (1ª e 2ª instâncias).
+Bonfire is a modern, high-performance, and visually stunning government platform designed to manage consortiums, public transport lines, active fleet vehicles, traffic infractions, and administrative recourses (1st and 2nd instances).
 
-Construído sobre um **design system com glassmorfismo e micro-animações premium**, o Bonfire unifica os fluxos municipais em uma experiência de usuário de nível internacional.
+Built on a **unified design system with glassmorphism and premium micro-animations**, Bonfire consolidates municipal workflows into a world-class user experience.
 
 ---
 
-## 🎨 Galeria Visual (Showcase)
+## 🎨 Visual Showcase
 
-### 🖥️ Painel Principal (Dashboard)
-Uma central de comando de trânsito municipal em modo escuro com indicadores da frota, alertas em tempo real e gráficos analíticos de volume de passageiros.
+### 🖥️ Dashboard (Main Control Panel)
+A dark-mode municipal traffic command center featuring active fleet metrics, real-time alert logs, and passenger volume analytics.
 
 ![Bonfire Dashboard Mockup](/apps/main/public/dashboard_mockup.png)
 
 ---
 
-### 📥 Painel de Importação (Import Panel)
-Um painel de importação limpo, moderno e auditável que gerencia uploads de CSV de infrações ou recursos e gera relatórios de processamento instantâneos.
+### 📥 Import Panel
+A clean, modern, and auditable import panel that processes infraction and recourse CSV uploads, providing instant execution logs and status indicators.
 
 ![Bonfire Import Panel Mockup](/apps/main/public/import_mockup.png)
 
 ---
 
-### 🔑 Tela de Autenticação Segura (Login)
-Um portal de acesso governamental com gradientes vibrantes em tons de laranja/âmbar e campos de entrada totalmente responsivos e seguros.
+### 🔑 Secure Login Portal
+A government access portal designed with vibrant orange/amber gradients and fully responsive, secure input fields.
 
 ![Bonfire Login Mockup](/apps/main/public/login_mockup.png)
 
 ---
 
-## 🚀 Arquitetura do Monorepo (Turborepo)
+## 🚀 Monorepo Architecture (Turborepo & Turbopack)
 
-O projeto está estruturado como um monorepo modular e otimizado utilizando **Turborepo** e **npm Workspaces**:
+The project is structured as a modular, highly optimized monorepo using **Turborepo**, **Turbopack**, and **npm Workspaces**:
 
 ```mermaid
 graph TD
-    A[apps/main - Portal Next.js] --> B[@bonfire/core - Serviços & Auth]
-    A --> C[@bonfire/ui - Componentes Visuais]
-    B --> D[Axios / SWR / NextAuth]
-    C --> E[Design Tokens / Componentes Radix]
+    A[apps/main - Next.js 16 Portal] --> B[@bonfire/core - Services & Auth]
+    A --> C[@bonfire/ui - Shared Visual Components]
+    B --> D[Axios / SWR / NextAuth v5]
+    C --> E[Design Tokens / Radix Components]
 ```
 
-### 📁 Estrutura de Diretórios
-* **[`apps/main`](file:///home/lucaslima/Trabalho/Bonfire/frontend/apps/main)**: Aplicação Next.js 14 (App Router) que serve como o portal principal do operador municipal.
-* **[`packages/core`](file:///home/lucaslima/Trabalho/Bonfire/frontend/packages/core)**: Abstrações de lógica de negócios, clientes HTTP (Axios/SWR) e segurança da informação.
-* **[`packages/ui`](file:///home/lucaslima/Trabalho/Bonfire/frontend/packages/ui)**: Design System unificado, contendo componentes compartilhados de UI, formulários, modais, headers de página e tokens visuais.
+### 📁 Directory Layout
+* **[`apps/main`](file:///home/lucaslima/Trabalho/Bonfire/frontend/apps/main)**: The primary operator portal built with **Next.js 16 (App Router)**, compiled at lightning speed in local development using **Turbopack** (`next dev --turbo`).
+* **[`packages/core`](file:///home/lucaslima/Trabalho/Bonfire/frontend/packages/core)**: Shared business logic, isomorphic HTTP clients (Axios/SWR), and authentication drivers (NextAuth v5 / Auth.js).
+* **[`packages/ui`](file:///home/lucaslima/Trabalho/Bonfire/frontend/packages/ui)**: The unified design system housing reusable UI components (React 19), responsive form layouts, dialog overlays, and shared design tokens.
 
 ---
 
-## 💠 Destaque do Design System: Componente de Menu Lateral (`SideBar`)
+## 💠 Design System Spotlight: The `SideBar` Component
 
-O **[sidebar.tsx (packages/ui/src/components/ui)](file:///home/lucaslima/Trabalho/Bonfire/frontend/packages/ui/src/components/ui/sidebar.tsx)** é um componente altamente customizável e responsivo, construído com suporte a itens colapsáveis (`Collapsible`), animações suaves de transição no hover (`hover:translate-x-1`), temas claros/escuros (`bg-white/95 backdrop-blur-md dark:bg-zinc-950/95`) e destaque estilizado na cor laranja/âmbar quando ativo:
+The **[sidebar.tsx (packages/ui/src/components/ui)](file:///home/lucaslima/Trabalho/Bonfire/frontend/packages/ui/src/components/ui/sidebar.tsx)** is a highly responsive, collapsible sidebar component built with Radix primitives. It features smooth hover transition animations (`hover:translate-x-1`), full theme support (`bg-white/95 backdrop-blur-md dark:bg-zinc-950/95`), and active state highlighting using a tailored orange/amber styling:
 
 ```tsx
-// Exemplo de Estilização Reutilizável de Menu Ativo no SideBar
+// Reusable Active Item Highlight Styles in the SideBar Component
 const sidebarItemStyles = {
   link: (active: boolean) =>
     `flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold transition-all duration-300 ease-in-out ${
@@ -66,77 +66,77 @@ const sidebarItemStyles = {
 
 ---
 
-## 🔒 Camada de Segurança e Abstrações de Autenticação
+## 🔒 Security Layer & Authentication Abstraction
 
-Para garantir que o código das aplicações permaneça 100% limpo, modular e desacoplado de dependências de terceiros, todas as integrações com o **NextAuth** e **Keycloak** foram abstraídas dentro de **[`@bonfire/core`](file:///home/lucaslima/Trabalho/Bonfire/frontend/packages/core)**:
+To ensure the production application remains clean, modular, and completely decoupled from framework-specific authentication locks, all integrations with **NextAuth v5** and **Keycloak** are abstracted under **[`@bonfire/core`](file:///home/lucaslima/Trabalho/Bonfire/frontend/packages/core)**:
 
-### 1. Criptografia de Cookies (`tokenEncoder.ts`)
-* Define a interface genérica `ITokenEncoder` e a classe concreta `NextAuthTokenEncoder` para gerar e criptografar tokens em formato JWE utilizando a assinatura secreta do sistema.
-* Utilizado de forma isolada pelas suítes de teste Playwright para plantar cookies reais e seguros no navegador.
+### 1. Cryptographic Token Encoding
+* Houses secure encoding utilities mapped to modern NextAuth v5 token generation standards.
+* Encrypts sessions as high-entropy **JWE (JSON Web Encryption)** payloads using derived keys via **HKDF (sha256)** from the application secret.
 
-### 2. Validação do Middleware (`middleware.ts`)
-* Centraliza o `authMiddleware` na camada de core.
-* As aplicações Next.js importam o middleware de forma direta e isolada (`@bonfire/core/src/services/auth/middleware`), garantindo compatibilidade absoluta com o **Next.js Edge Runtime** sem importar bibliotecas pesadas de terceiros (prevenindo erros de Webpack em tempo de build).
+### 2. Edge-Compliant Middleware Validation
+* Centralizes the core `authMiddleware` logic inside the shared package.
+* The Next.js app imports the middleware directly from `@bonfire/core/src/services/auth/middleware`, ensuring complete compatibility with the strict **Next.js Edge Runtime** constraints without pulling in heavy Node.js-specific modules (avoiding build-time errors).
 
-### 3. Decodificação de Tokens (`tokenDecoder.ts`)
-* Implementa o `Base64TokenDecoder` para ler e injetar claims municipais (como cargo/role) diretamente na sessão ativa do usuário no frontend.
-
----
-
-## 🧪 Suíte de Testes End-to-End (Playwright)
-
-Implementamos uma suíte de testes ponta a ponta que valida de forma 100% fiel e rápida todas as páginas administrativas do Bonfire utilizando **Session Cookie Injection** (Injeção de Cookie de Sessão Criptografado):
-
-* O arquivo de testes gera um token NextAuth JWE assinado de forma idêntica à de produção.
-* O cookie `next-auth.session-token` is injetado diretamente no contexto do navegador.
-* O middleware real de produção valida o cookie e libera as rotas. **Zero modificações de teste no código de produção!**
+### 3. Claim Mapping & Session Decoding
+* Implements isomorphic token decoders to decode claims (such as municipal roles, e.g., `Operador`) and expose them reactively to the React 19 frontend SWR drivers.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🧪 End-to-End Test Suite (Playwright)
 
-* **Framework Principal**: Next.js 14 (React 18 & App Router)
-* **Gerenciamento do Monorepo**: Turborepo & npm Workspaces
-* **Estilização & Design**: Vanilla CSS (TailwindCSS integrado em UI) & Framer Motion
-* **Consumo de APIs**: Axios HTTP Client & SWR (Stale-While-Revalidate)
-* **Segurança & Sessão**: NextAuth.js & Keycloak (OAuth2 / OIDC)
-* **Validação de Schemas**: Zod
-* **Testes End-to-End**: Playwright Test (Engine de execução Google Chrome)
+We implemented a robust, ultra-fast E2E test suite validating all primary administrative dashboards (including consortia grids, vehicle additions, line registers, infractions, and recourses) with full reactive assertions:
+
+* **Session Cookie Injection**: In authenticated specs, the test runner programmatically generates a secure session cookie (`next-auth.session-token`) cryptographically signed in **A256CBC-HS512** and derived via **HKDF** matching the production encryption standard.
+* **Isomorphic Execution**: Gathers and injects cookies directly into the browser context. The encryption helper runs in isolated Playwright Node.js ESM processes using `@panva/hkdf` and `jose`, completely bypassing the infamous ESM `next/server` subpath resolution error without requiring brittle patches or volatile hacks in `node_modules`.
 
 ---
 
-## 💻 Como Rodar o Projeto
+## 🛠️ Tech Stack
 
-Todos os scripts de desenvolvimento e testes podem ser executados diretamente a partir do **diretório raiz do monorepo** utilizando o Turborepo:
+* **Main Framework**: Next.js 16 (React 19 & App Router)
+* **Local Development Compiler**: Turbopack (`--turbo`) for near-instant compilation
+* **Monorepo Manager**: Turborepo & npm Workspaces
+* **Styling & Transitions**: Vanilla CSS (TailwindCSS in UI library) & Framer Motion for micro-interactions
+* **Data Fetching**: Axios isomorphic instance & SWR (Stale-While-Revalidate) for reactive state updates
+* **Identity & Session**: NextAuth.js v5 & Keycloak (OAuth2 / OIDC)
+* **Validation & Forms**: Zod (equipped with automatic coercion to support native React 19 form submissions)
+* **Testing Engine**: Playwright Test (running on native Google Chrome instances)
 
-### 📥 1. Iniciar Ambiente de Desenvolvimento
-Roda todos os apps e pacotes em modo de desenvolvimento simultaneamente:
+---
+
+## 💻 Running the Project
+
+All tasks, development servers, and test runs can be executed directly from the **monorepo root directory** using Turborepo:
+
+### 📥 1. Start Development Server
+Launches the Next.js portal and packages concurrently, boosted by **Turbopack**:
 ```bash
 npm run dev
 ```
 
-### 📦 2. Compilar para Produção (Build)
-Compila todos os pacotes e gera os bundles Next.js otimizados:
+### 📦 2. Production Compilation (Build)
+Compiles all workspace packages and builds the optimized Next.js bundle:
 ```bash
 npm run build
 ```
 
-### 🧪 3. Executar Testes E2E (Playwright)
+### 🧪 3. Run E2E Test Suite (Playwright)
 
-#### Rota A: Execução em Background (Headless)
-Ideal para validações rápidas de terminal e pipelines CI/CD:
+#### Route A: Background Headless Execution
+Perfect for rapid local verifications and CI/CD pipelines:
 ```bash
 npm run test:e2e
 ```
 
-#### Rota B: Depurador Visual Interativo (UI Mode)
-Abre o painel visual oficial do Playwright com depurador de DOM, rastreador de rede e logs de tempo real:
+#### Route B: Interactive Visual UI Mode
+Opens Playwright's visual dashboard showing step-by-step DOM snapshots, network inspector, and live runner logs:
 ```bash
 npm run test:e2e:ui
 ```
 
-#### Rota C: Execução Visível (Headed Mode)
-Abre uma janela visível do Google Chrome para assistir aos cliques e testes sendo executados em alta velocidade:
+#### Route C: Headed Window Execution
+Opens a visible Google Chrome window, allowing you to watch the automated interactions in real time:
 ```bash
 npm run test:e2e:headed
 ```
